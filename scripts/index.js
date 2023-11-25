@@ -1,3 +1,5 @@
+"use strict";
+
 class IllegalOperationException extends Error {
     what() {
         return this.message;
