@@ -8,3 +8,8 @@
 ::after {
     box-sizing: inherit;
 }
+
+main {
+    border: 1px solid black;
+    border-radius: .75em;
+}
