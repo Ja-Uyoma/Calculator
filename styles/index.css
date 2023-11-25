@@ -23,3 +23,8 @@ div.display {
     border-radius: 0.25em;
     margin: 1em 1em;
 }
+
+div.display > p {
+    vertical-align: bottom;
+    text-align: right;
+}
