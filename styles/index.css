@@ -39,6 +39,14 @@ div.flex > button {
     text-transform: uppercase;
 }
 
+div.flex > button:first-child {
+    background-color: #F08080;
+}
+
+div.flex > button:last-child {
+    background-color: #5A4FCF;
+}
+
 div.grid {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
