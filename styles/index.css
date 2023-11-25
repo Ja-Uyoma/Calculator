@@ -37,6 +37,7 @@ div.flex {
 
 div.flex > button {
     text-transform: uppercase;
+    flex: 1;
 }
 
 div.flex > button:first-child {
