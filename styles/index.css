@@ -33,3 +33,7 @@ div.flex {
     display: flex;
     gap: .5em;
 }
+
+div.flex > button {
+    text-transform: uppercase;
+}
