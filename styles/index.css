@@ -28,3 +28,8 @@ div.display > p {
     vertical-align: bottom;
     text-align: right;
 }
+
+div.flex {
+    display: flex;
+    gap: .5em;
+}
