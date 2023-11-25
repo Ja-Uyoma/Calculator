@@ -53,3 +53,9 @@ div.grid {
     grid-template-rows: 1fr 1fr 1fr 1fr;
     gap: .5em;
 }
+
+button {
+    font-size: 1.125rem;
+    padding: 1.125em 1.125em;
+    border-radius: .5em;
+}
