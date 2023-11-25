@@ -49,3 +49,7 @@ function divide(first, second) {
 
     return first / second;
 }
+
+let firstOperand = null;
+let secondOperand = null;
+let operator = null;
