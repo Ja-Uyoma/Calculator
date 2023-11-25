@@ -37,3 +37,10 @@ div.flex {
 div.flex > button {
     text-transform: uppercase;
 }
+
+div.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    gap: .5em;
+}
