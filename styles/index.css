@@ -17,3 +17,9 @@ main {
 main > * + * {
     margin: 1em 1em;
 }
+
+div.display {
+    border: 1px solid black;
+    border-radius: 0.25em;
+    margin: 1em 1em;
+}
