@@ -39,6 +39,8 @@ div.display {
 div.display > p {
     vertical-align: bottom;
     text-align: right;
+    font-size: 2rem;
+    font-weight: bold;
     padding: 0 .5em;
 }
 
