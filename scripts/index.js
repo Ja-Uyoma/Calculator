@@ -78,3 +78,12 @@ function operate(infixOperator, first, second) {
         return outcome;
     }
 }
+
+let display = document.querySelector("div.display > p");
+let buttons = document.querySelectorAll(".btn");
+
+buttons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+        display.textContent = btn.textContent;
+    });
+});
