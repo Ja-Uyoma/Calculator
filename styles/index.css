@@ -33,6 +33,7 @@ div.display {
     border-radius: 0.25em;
     margin: 1em 1em;
     padding: .5em 0;
+    background-color: white;
 }
 
 div.display > p {
