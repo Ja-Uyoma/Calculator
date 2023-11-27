@@ -87,3 +87,8 @@ buttons.forEach((btn) => {
         display.textContent += btn.textContent;
     });
 });
+
+let clearBtn = document.querySelector(".btn-clear");
+clearBtn.addEventListener("click", () => {
+    display.textContent = "0";
+});
