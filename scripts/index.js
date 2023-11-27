@@ -84,7 +84,12 @@ let buttons = document.querySelectorAll(".btn");
 
 buttons.forEach((btn) => {
     btn.addEventListener("click", () => {
-        display.textContent += btn.textContent;
+        if (display.textContent === "0") {
+            display.textContent = btn.textContent;
+        }
+        else {
+            display.textContent += btn.textContent;
+        }
     });
 });
 
