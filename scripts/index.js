@@ -54,6 +54,13 @@ let firstOperand = null;
 let secondOperand = null;
 let operator = null;
 
+/**
+ * Determine an operation to perform and execute it
+ * @param {string} infixOperator The operation to perform
+ * @param {number} first The first argument to the operator
+ * @param {number} second The second argument to the operator
+ * @returns The result of performing the specified operation
+ */
 function operate(infixOperator, first, second) {
     if (infixOperator === "+") {
         return add(first, second);
