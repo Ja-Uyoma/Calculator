@@ -92,3 +92,12 @@ let clearBtn = document.querySelector(".btn-clear");
 clearBtn.addEventListener("click", () => {
     display.textContent = "0";
 });
+
+let delBtn = document.querySelector(".btn-delete");
+delBtn.addEventListener("click", () => {
+    let string = display.textContent;
+    
+    if (string.length > 1) {
+        display.textContent = string.substring(0, string.length - 1);    
+    }
+});
