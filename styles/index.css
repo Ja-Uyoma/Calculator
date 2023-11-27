@@ -39,6 +39,7 @@ div.display {
 div.display > p {
     vertical-align: bottom;
     text-align: right;
+    padding: 0 .5em;
 }
 
 div.flex {
