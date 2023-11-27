@@ -69,3 +69,8 @@ button {
     padding: 1.125em 1.125em;
     border-radius: .5em;
 }
+
+footer > p {
+    text-align: center;
+    font-weight: bold;
+}
