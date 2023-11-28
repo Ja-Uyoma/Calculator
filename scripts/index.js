@@ -90,6 +90,7 @@ function operate(infixOperator, first, second) {
     }
 }
 
+let expr = "";
 let display = document.querySelector("div.display > p");
 let buttons = document.querySelectorAll(".btn");
 
@@ -101,12 +102,15 @@ buttons.forEach((btn) => {
         else {
             display.textContent += btn.textContent;
         }
+
+        expr = display.textContent;
     });
 });
 
 let clearBtn = document.querySelector(".btn-clear");
 clearBtn.addEventListener("click", () => {
     display.textContent = "0";
+    expr = "0";
 });
 
 let delBtn = document.querySelector(".btn-delete");
@@ -117,6 +121,8 @@ delBtn.addEventListener("click", () => {
         display.textContent = "";
         display.textContent = string.substring(0, string.length - 1);    
     }
+
+    expr = display.textContent;
 });
 
 function updateYear() {
