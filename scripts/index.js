@@ -114,6 +114,7 @@ delBtn.addEventListener("click", () => {
     let string = display.textContent;
     
     if (string.length > 1) {
+        display.textContent = "";
         display.textContent = string.substring(0, string.length - 1);    
     }
 });
