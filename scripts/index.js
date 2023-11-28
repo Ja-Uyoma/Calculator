@@ -113,3 +113,12 @@ delBtn.addEventListener("click", () => {
         display.textContent = string.substring(0, string.length - 1);    
     }
 });
+
+function updateYear() {
+    let field = document.querySelector("span.year");
+    const currentYear = new Date().getFullYear();
+
+    field.textContent = currentYear.toString();
+}
+
+updateYear();
