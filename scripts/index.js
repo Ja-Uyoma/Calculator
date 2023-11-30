@@ -1,13 +1,13 @@
 "use strict";
 
 class IllegalOperationException extends Error {
-    /**
-     * Get the error message describing the exception that occured
-     * @returns {string} An message describing the error that occured
-     */
-    what() {
-        return this.message;
-    }
+  /**
+   * Get the error message describing the exception that occured
+   * @returns {string} An message describing the error that occured
+   */
+  what() {
+    return this.message;
+  }
 }
 
 /**
@@ -17,7 +17,7 @@ class IllegalOperationException extends Error {
  * @returns The sum of the two numbers
  */
 function add(first, second) {
-    return first + second;
+  return first + second;
 }
 
 /**
@@ -27,7 +27,7 @@ function add(first, second) {
  * @returns The difference of the two numbers
  */
 function subtract(first, second) {
-    return first - second;
+  return first - second;
 }
 
 /**
@@ -37,7 +37,7 @@ function subtract(first, second) {
  * @returns The product of the two numbers
  */
 function multiply(first, second) {
-    return first * second;
+  return first * second;
 }
 
 /**
@@ -47,11 +47,11 @@ function multiply(first, second) {
  * @returns The quotient of the two numbers
  */
 function divide(first, second) {
-    if (second === 0) {
-        throw new IllegalOperationException("Division by zero is undefined");
-    }
+  if (second === 0) {
+    throw new IllegalOperationException("Division by zero is undefined");
+  }
 
-    return first / second;
+  return first / second;
 }
 
 let firstOperand = null;
@@ -66,28 +66,24 @@ let operator = null;
  * @returns The result of performing the specified operation
  */
 function operate(infixOperator, first, second) {
-    if (infixOperator === "+") {
-        return add(first, second);
-    }
-    else if (infixOperator === "-") {
-        return subtract(first, second);
-    }
-    else if (infixOperator === "*") {
-        return multiply(first, second);
-    }
-    else if (infixOperator === "/") {
-        let outcome = 1;
+  if (infixOperator === "+") {
+    return add(first, second);
+  } else if (infixOperator === "-") {
+    return subtract(first, second);
+  } else if (infixOperator === "*") {
+    return multiply(first, second);
+  } else if (infixOperator === "/") {
+    let outcome = 1;
 
-        try {
-            outcome = divide(first, second);
-        }
-        catch (err) {
-            console.error(err.what());
-            outcome = null;
-        }
-
-        return outcome;
+    try {
+      outcome = divide(first, second);
+    } catch (err) {
+      console.error(err.what());
+      outcome = null;
     }
+
+    return outcome;
+  }
 }
 
 let expr = "";
@@ -95,41 +91,40 @@ let display = document.querySelector("div.display > p");
 let buttons = document.querySelectorAll(".btn");
 
 buttons.forEach((btn) => {
-    btn.addEventListener("click", () => {
-        if (display.textContent === "0") {
-            display.textContent = btn.textContent;
-        }
-        else {
-            display.textContent += btn.textContent;
-        }
+  btn.addEventListener("click", () => {
+    if (display.textContent === "0") {
+      display.textContent = btn.textContent;
+    } else {
+      display.textContent += btn.textContent;
+    }
 
-        expr = display.textContent;
-    });
+    expr = display.textContent;
+  });
 });
 
 let clearBtn = document.querySelector(".btn-clear");
 clearBtn.addEventListener("click", () => {
-    display.textContent = "0";
-    expr = "0";
+  display.textContent = "0";
+  expr = "0";
 });
 
 let delBtn = document.querySelector(".btn-delete");
 delBtn.addEventListener("click", () => {
-    let string = display.textContent;
-    
-    if (string.length > 1) {
-        display.textContent = "";
-        display.textContent = string.substring(0, string.length - 1);    
-    }
+  let string = display.textContent;
 
-    expr = display.textContent;
+  if (string.length > 1) {
+    display.textContent = "";
+    display.textContent = string.substring(0, string.length - 1);
+  }
+
+  expr = display.textContent;
 });
 
 function updateYear() {
-    let field = document.querySelector("span.year");
-    const currentYear = new Date().getFullYear();
+  let field = document.querySelector("span.year");
+  const currentYear = new Date().getFullYear();
 
-    field.textContent = currentYear.toString();
+  field.textContent = currentYear.toString();
 }
 
 updateYear();
