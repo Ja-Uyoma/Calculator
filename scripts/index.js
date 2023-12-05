@@ -1,5 +1,7 @@
 "use strict";
 
+import IllegalOperationException from "./IllegalOperationException";
+
 /**
  * Add two numbers
  * @param {number} first The first number in the operation
