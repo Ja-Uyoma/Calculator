@@ -1,6 +1,7 @@
 "use strict";
 
-import { add, subtract, multiply, divide } from "./MathOperations";
+import { updateYear } from "./UpdateYear.js";
+import { add, subtract, multiply, divide } from "./MathOperations.js";
 
 /**
  * Determine an operation to perform and execute it
@@ -63,12 +64,5 @@ delBtn.addEventListener("click", () => {
 
   expr = display.textContent;
 });
-
-function updateYear() {
-  let field = document.querySelector("span.year");
-  const currentYear = new Date().getFullYear();
-
-  field.textContent = currentYear.toString();
-}
 
 updateYear();

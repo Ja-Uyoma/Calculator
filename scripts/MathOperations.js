@@ -1,4 +1,4 @@
-import IllegalOperationException from "./IllegalOperationException";
+import IllegalOperationException from "./IllegalOperationException.js";
 
 /**
  * Add two numbers
