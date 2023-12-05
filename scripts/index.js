@@ -2,10 +2,6 @@
 
 import { add, subtract, multiply, divide } from "./MathOperations";
 
-let firstOperand = null;
-let secondOperand = null;
-let operator = null;
-
 /**
  * Determine an operation to perform and execute it
  * @param {string} infixOperator The operation to perform
