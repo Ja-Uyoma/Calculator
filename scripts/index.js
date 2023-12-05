@@ -2,6 +2,15 @@
 
 import { updateYear } from "./UpdateYear.js";
 import { add, subtract, multiply, divide } from "./MathOperations.js";
+import {
+  updateDisplay,
+  clearDisplay,
+  deleteCharacter,
+} from "./DOMManipulation.js";
+
+updateDisplay();
+clearDisplay();
+deleteCharacter();
 
 /**
  * Determine an operation to perform and execute it
@@ -30,39 +39,5 @@ function operate(infixOperator, first, second) {
     return outcome;
   }
 }
-
-let expr = "";
-let display = document.querySelector("div.display > p");
-let buttons = document.querySelectorAll(".btn");
-
-buttons.forEach((btn) => {
-  btn.addEventListener("click", () => {
-    if (display.textContent === "0") {
-      display.textContent = btn.textContent;
-    } else {
-      display.textContent += btn.textContent;
-    }
-
-    expr = display.textContent;
-  });
-});
-
-let clearBtn = document.querySelector(".btn-clear");
-clearBtn.addEventListener("click", () => {
-  display.textContent = "0";
-  expr = "0";
-});
-
-let delBtn = document.querySelector(".btn-delete");
-delBtn.addEventListener("click", () => {
-  let string = display.textContent;
-
-  if (string.length > 1) {
-    display.textContent = "";
-    display.textContent = string.substring(0, string.length - 1);
-  }
-
-  expr = display.textContent;
-});
 
 updateYear();
