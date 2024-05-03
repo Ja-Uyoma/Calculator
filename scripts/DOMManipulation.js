@@ -2,6 +2,9 @@
 
 const display = document.querySelector("div.display > p");
 
+/**
+ * Update the calculator's display with the value of the button(s) pressed.
+ */
 export function updateDisplay() {
   let buttons = document.querySelectorAll(".btn");
 
@@ -16,6 +19,9 @@ export function updateDisplay() {
   });
 }
 
+/**
+ * Reset the display of the calculator to its default state
+ */
 export function clearDisplay() {
   let clearBtn = document.querySelector(".btn-clear");
 
@@ -24,6 +30,9 @@ export function clearDisplay() {
   });
 }
 
+/**
+ * Delete the right-most character present in the calculator's display
+ */
 export function deleteCharacter() {
   let delBtn = document.querySelector(".btn-delete");
 
