@@ -1,6 +1,5 @@
 "use strict";
 
-import { updateYear } from "./UpdateYear.js";
 import {
   updateDisplay,
   clearDisplay,
@@ -10,5 +9,3 @@ import {
 updateDisplay();
 clearDisplay();
 deleteCharacter();
-
-updateYear();
