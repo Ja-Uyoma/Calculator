@@ -1,6 +1,6 @@
 "use strict";
 
-const display = document.querySelector("div.display > .input");
+const input = document.querySelector(".input");
 
 /**
  * Update the calculator's display with the value of the button(s) pressed.
@@ -11,10 +11,10 @@ export function updateDisplay() {
   buttons.forEach((btn) => {
     btn.addEventListener("click", (event) => {
       if (btn.textContent !== "=") {
-        if (display.textContent === "0") {
-          display.textContent = btn.textContent;
+        if (input.textContent === "0") {
+          input.textContent = btn.textContent;
         } else {
-          display.textContent += btn.textContent;
+          input.textContent += btn.textContent;
         }
       }
     });
@@ -28,7 +28,7 @@ export function clearDisplay() {
   let clearBtn = document.querySelector(".btn-clear");
 
   clearBtn.addEventListener("click", () => {
-    display.textContent = "0";
+    input.textContent = "0";
   });
 }
 
