@@ -1,6 +1,6 @@
 "use strict";
 
-const display = document.querySelector("div.display > p");
+const display = document.querySelector("div.display > .input");
 
 /**
  * Update the calculator's display with the value of the button(s) pressed.
