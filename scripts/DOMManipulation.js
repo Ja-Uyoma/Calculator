@@ -9,11 +9,13 @@ export function updateDisplay() {
   let buttons = document.querySelectorAll(".btn");
 
   buttons.forEach((btn) => {
-    btn.addEventListener("click", () => {
-      if (display.textContent === "0") {
-        display.textContent = btn.textContent;
-      } else {
-        display.textContent += btn.textContent;
+    btn.addEventListener("click", (event) => {
+      if (btn.textContent !== "=") {
+        if (display.textContent === "0") {
+          display.textContent = btn.textContent;
+        } else {
+          display.textContent += btn.textContent;
+        }
       }
     });
   });
