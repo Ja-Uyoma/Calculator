@@ -37,16 +37,15 @@ export function clearDisplay() {
  */
 export function deleteCharacter() {
   let delBtn: HTMLButtonElement | null = document.querySelector(".btn-delete");
-  const display: HTMLDivElement | null = document.querySelector(".display");
 
   delBtn?.addEventListener("click", () => {
-    const str = display?.textContent;
+    const str = input?.textContent;
 
     if (str && str.length > 1) {
-      display.textContent = "";
-      display.textContent = str.substring(0, str.length - 1);
+      input.textContent = "";
+      input.textContent = str.substring(0, str.length - 1);
     } else if (str && str.length === 1) {
-      display.textContent = "0";
+      input.textContent = "0";
     }
   });
 }
