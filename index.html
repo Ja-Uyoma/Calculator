@@ -1,10 +1,10 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./styles/index.css" />
-    <script src="./scripts/index.js" type="module" defer></script>
+    <link rel="stylesheet" href="./src/styles.css" />
+    <script src="./src/main.ts" type="module" defer></script>
     <title>Calculator</title>
   </head>
   <body>
@@ -14,15 +14,16 @@
 
     <main>
       <div class="display">
-        <p>0</p>
+        <div class="input">0</div>
+        <div class="output"></div>
       </div>
 
-      <div class="flex container">
+      <div class="flex">
         <button type="button" class="btn-clear">Clear</button>
         <button type="button" class="btn-delete">Delete</button>
       </div>
 
-      <div class="grid container">
+      <div class="grid">
         <button type="button" class="btn">7</button>
         <button type="button" class="btn">8</button>
         <button type="button" class="btn">9</button>

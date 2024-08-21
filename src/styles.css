@@ -35,12 +35,10 @@ div.display {
   background-color: white;
 }
 
-div.display > p {
-  vertical-align: bottom;
+div.display > .input {
   text-align: right;
   font-size: 2rem;
-  font-weight: bold;
-  padding: 0 0.5em;
+  padding: 0.5em 0.5em;
 }
 
 div.flex {
