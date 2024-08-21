@@ -1,10 +1,8 @@
-"use strict";
-
 import {
   updateDisplay,
   clearDisplay,
   deleteCharacter,
-} from "./DOMManipulation.js";
+} from "./DOMManipulation.ts";
 
 updateDisplay();
 clearDisplay();
