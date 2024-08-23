@@ -16,3 +16,17 @@ export function trimWhitespace(expr: string): string {
 
   return output;
 }
+
+/**
+ * Determine if a given character is an operator or not
+ * @param expr The search string
+ * @returns True if the given character is an operator, false otherwise
+ */
+export function isOperator(expr: string): boolean {
+  return (
+    expr.includes("+") ||
+    expr.includes("-") ||
+    expr.includes("*") ||
+    expr.includes("/")
+  );
+}
