@@ -7,7 +7,7 @@ export function trimWhitespace(expr: string): string {
   let output = "";
 
   for (let i = 0; i < expr.length; i++) {
-    if (expr[i] == " ") {
+    if (expr[i] === " ") {
       continue;
     } else {
       output += expr[i];
