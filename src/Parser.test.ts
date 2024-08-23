@@ -1,4 +1,4 @@
-import { trimWhitespace } from "./Parser";
+import { trimWhitespace, isOperator } from "./Parser";
 
 import { describe, expect, it } from "vitest";
 
@@ -19,5 +19,18 @@ describe("trimWhitespace", () => {
     const input = "The quick ";
     const output = trimWhitespace(input);
     expect(output).toBe("Thequick");
+  });
+});
+
+describe("isOperator", () => {
+  it("returns true if a given character is an operator", () => {
+    expect(isOperator("+")).toBe(true);
+    expect(isOperator("-")).toBe(true);
+    expect(isOperator("*")).toBe(true);
+    expect(isOperator("/")).toBe(true);
+  });
+
+  it("returns false if a given character is not an operator", () => {
+    expect(isOperator("&")).toBe(false);
   });
 });
