@@ -1,4 +1,4 @@
-import { trimWhitespace, isOperator } from "./Parser";
+import { trimWhitespace, isOperator, isNumber } from "./Parser";
 
 import { describe, expect, it } from "vitest";
 
@@ -32,5 +32,15 @@ describe("isOperator", () => {
 
   it("returns false if a given character is not an operator", () => {
     expect(isOperator("&")).toBe(false);
+  });
+});
+
+describe("isNumber", () => {
+  it("returns true if a given character is a number", () => {
+    expect(isNumber("1234")).toBe(true);
+  });
+
+  it("returns false if the given character is not a number", () => {
+    expect(isNumber("a")).toBe(false);
   });
 });
