@@ -1,6 +1,6 @@
-export type Operator = "+" | "-" | "*" | "/";
+export type OperatorSymbol = "+" | "-" | "*" | "/";
 
-export const OperatorPrecedence = new Map<Operator, number>([
+export const Operators = new Map<OperatorSymbol, number>([
   ["-", 1],
   ["+", 2],
   ["*", 3],
