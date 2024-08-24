@@ -9,13 +9,13 @@ interface IStack<T> {
    * Pop an item from the stack
    * @returns The item at the top of the stack
    */
-  pop(): T | undefined;
+  pop(): T;
 
   /**
    * Get the item at the top of the stack
    * @returns The item at the top of the stack
    */
-  peek(): T | undefined;
+  peek(): T;
 
   /**
    * Get the number of items in the stack
@@ -55,16 +55,28 @@ export class Stack<T> implements IStack<T> {
    * Pop an item from the stack
    * @returns The item at the top of the stack
    */
-  pop(): T | undefined {
-    return this.store.pop();
+  pop(): T {
+    const top = this.store.pop();
+
+    if (top === undefined) {
+      throw new Error("Cannot pop from an empty stack");
+    }
+
+    return top;
   }
 
   /**
    * Get the item at the top of the stack
    * @returns The item at the top of the stack
    */
-  peek(): T | undefined {
-    return this.store[this.size() - 1];
+  peek(): T {
+    const top = this.store[this.size() - 1];
+
+    if (top === undefined) {
+      throw new Error("Cannot peek at an empty stack");
+    }
+
+    return top;
   }
 
   /**
