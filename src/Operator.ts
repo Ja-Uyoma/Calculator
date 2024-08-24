@@ -3,9 +3,9 @@ export interface Operator {
   precedence: number;
 }
 
-export const Operators = new Map<OperatorSymbol, number>([
-  ["-", 1],
-  ["+", 2],
-  ["*", 3],
-  ["/", 4],
-]);
+export const Operators: Operator[] = [
+  { symbol: "-", precedence: 1 },
+  { symbol: "+", precedence: 2 },
+  { symbol: "*", precedence: 3 },
+  { symbol: "/", precedence: 4 },
+];
