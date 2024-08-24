@@ -1,4 +1,7 @@
-export type OperatorSymbol = "+" | "-" | "*" | "/";
+export interface Operator {
+  symbol: string;
+  precedence: number;
+}
 
 export const Operators = new Map<OperatorSymbol, number>([
   ["-", 1],
