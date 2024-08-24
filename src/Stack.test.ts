@@ -29,11 +29,10 @@ describe("Stack", () => {
     expect(popped).toBe(3);
   });
 
-  it("yields undefined when popping from an empty stack", () => {
+  it("throws an Error when popping from an empty stack", () => {
     const stack = new Stack<number>();
-    const popped = stack.pop();
 
-    expect(popped).toBe(undefined);
+    expect(() => stack.pop()).toThrowError("Cannot pop from an empty stack");
   });
 
   it("peek retrieves the item last pushed onto the stack", () => {
