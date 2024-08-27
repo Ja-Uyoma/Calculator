@@ -4,6 +4,7 @@ import {
   isNumber,
   processRightBracket,
   processOperator,
+  parse,
 } from "./Parser";
 
 import { describe, expect, it } from "vitest";
@@ -103,5 +104,26 @@ describe("processOperator", () => {
 
     expect(stack.peek()).toBe("-");
     expect(output).toEqual(["/", "*", "+"]);
+  });
+});
+
+describe("parse", () => {
+  it("converts an infix expression into Reverse Polish Notation", () => {
+    expect(parse("1 + 1 - 2")).toEqual(["1", "1", "+", "2", "-"]);
+    expect(parse("1 + 1 - 2 * 4 + 8 / 2 - 1")).toEqual([
+      "1",
+      "1",
+      "+",
+      "2",
+      "4",
+      "*",
+      "8",
+      "2",
+      "/",
+      "+",
+      "1",
+      "-",
+      "-",
+    ]);
   });
 });
