@@ -3,6 +3,7 @@ import {
   isOperator,
   isNumber,
   processRightBracket,
+  processOperator,
 } from "./Parser";
 
 import { describe, expect, it } from "vitest";
@@ -66,5 +67,41 @@ describe("processRightBracket", () => {
 
     expect(output).toEqual(["4", "3", "2"]);
     expect(stack.peek()).toBe("1");
+  });
+});
+
+describe("processOperator", () => {
+  it("Pushes the given operator to the stack if the stack was initially empty", () => {
+    const stack = new Stack<string>();
+    const output: string[] = [];
+
+    processOperator("+", stack, output);
+
+    expect(stack.peek()).toBe("+");
+  });
+
+  it("Pushes the current operator on the stack if it has a greater precedence than the one at the top of the stack", () => {
+    const stack = new Stack<string>();
+    const output: string[] = [];
+
+    stack.push("*");
+
+    processOperator("/", stack, output);
+
+    expect(stack.peek()).toEqual("/");
+  });
+
+  it("Pops operators from the stack onto the output queue if the currnt operator has lower precedence", () => {
+    const stack = new Stack<string>();
+    const output: string[] = [];
+
+    stack.push("+");
+    stack.push("*");
+    stack.push("/");
+
+    processOperator("-", stack, output);
+
+    expect(stack.peek()).toBe("-");
+    expect(output).toEqual(["/", "*", "+"]);
   });
 });
