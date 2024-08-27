@@ -1,3 +1,4 @@
+import { Stack } from "./Stack";
 /**
  * Trim the whitespace from a given string
  * @param expr The string from which whitespace is to be eliminated
@@ -46,3 +47,15 @@ export function isNumber(expr: string): boolean {
   return true;
 }
 
+/**
+ * Handle a right bracket encounter
+ * @param stack The stack containing tokens
+ * @param output The array containing the result of calling this function
+ */
+export function processRightBracket(stack: Stack<string>, output: string[]) {
+  while (!stack.empty() && stack.peek() !== "(") {
+    output.push(stack.pop());
+  }
+
+  stack.pop();
+}
