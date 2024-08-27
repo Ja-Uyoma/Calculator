@@ -1,4 +1,6 @@
 import { Stack } from "./Stack";
+import { Operators } from "./Operator";
+
 /**
  * Trim the whitespace from a given string
  * @param expr The string from which whitespace is to be eliminated
@@ -45,6 +47,27 @@ export function isNumber(expr: string): boolean {
   }
 
   return true;
+}
+
+/**
+ * Handle parsing whenever an operator is encountered
+ * @param operator The current operator in the expression
+ * @param stack The stack of operator tokens
+ * @param output The output expression
+ */
+export function processOperator(
+  operator: string,
+  stack: Stack<string>,
+  output: string[]
+) {
+  while (
+    !stack.empty() &&
+    Operators.get(stack.peek())! > Operators.get(operator)!
+  ) {
+    output.push(stack.pop());
+  }
+
+  stack.push(operator);
 }
 
 /**
