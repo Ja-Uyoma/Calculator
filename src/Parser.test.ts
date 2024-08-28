@@ -65,11 +65,11 @@ describe("processOperator", () => {
     const stack = new Stack<string>();
     const output: string[] = [];
 
-    stack.push("*");
+    stack.push("×");
 
-    processOperator("/", stack, output);
+    processOperator("÷", stack, output);
 
-    expect(stack.peek()).toEqual("/");
+    expect(stack.peek()).toEqual("÷");
   });
 
   it("Pops operators from the stack onto the output queue if the currnt operator has lower precedence", () => {
@@ -77,29 +77,29 @@ describe("processOperator", () => {
     const output: string[] = [];
 
     stack.push("+");
-    stack.push("*");
-    stack.push("/");
+    stack.push("×");
+    stack.push("÷");
 
     processOperator("-", stack, output);
 
     expect(stack.peek()).toBe("-");
-    expect(output).toEqual(["/", "*", "+"]);
+    expect(output).toEqual(["÷", "×", "+"]);
   });
 });
 
 describe("parse", () => {
   it("converts an infix expression into Reverse Polish Notation", () => {
     expect(parse("1 + 1 - 2")).toEqual(["1", "1", "+", "2", "-"]);
-    expect(parse("1 + 1 - 2 * 4 + 8 / 2 - 1")).toEqual([
+    expect(parse("1 + 1 - 2 × 4 + 8 ÷ 2 - 1")).toEqual([
       "1",
       "1",
       "+",
       "2",
       "4",
-      "*",
+      "×",
       "8",
       "2",
-      "/",
+      "÷",
       "+",
       "1",
       "-",
@@ -110,7 +110,7 @@ describe("parse", () => {
 
 describe("evaluate", () => {
   it("evaluates a given mathematical expression", () => {
-    const expr = parse("1 + 1 - 2 * 4 + 8 / 2 - 1");
+    const expr = parse("1 + 1 - 2 × 4 + 8 ÷ 2 - 1");
     const result = evaluate(expr);
 
     expect(result).toBe(-9);
