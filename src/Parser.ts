@@ -8,14 +8,7 @@ import { add, divide, multiply, subtract } from "./MathOperations";
  * @returns True if the given character is an operator, false otherwise
  */
 export function isOperator(expr: string): boolean {
-  return (
-    expr === "+" ||
-    expr === "-" ||
-    expr === "*" ||
-    expr === "×" ||
-    expr === "/" ||
-    expr === "÷"
-  );
+  return expr === "-" || expr === "+" || expr === "×" || expr === "÷";
 }
 
 /**
