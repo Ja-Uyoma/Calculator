@@ -1,5 +1,6 @@
 import { Stack } from "./Stack";
 import { Operators } from "./Operator";
+import { add, divide, multiply, subtract } from "./MathOperations";
 
 /**
  * Trim the whitespace from a given string
@@ -110,4 +111,35 @@ export function parse(expr: string): string[] {
   }
 
   return output;
+}
+
+/**
+ * Evaluate an arithmetic expression and return the result
+ * @param expr An arithmetic expression in postfix (or Reverse Polish) notation
+ * @returns The result of evaluating the expression
+ */
+export function evaluate(expr: string[]): number {
+  const stack = new Stack<number>();
+
+  for (let i = 0; i < expr.length; i++) {
+    if (!isOperator(expr[i])) {
+      stack.push(parseInt(expr[i]));
+      continue;
+    } else {
+      const second = stack.pop();
+      const first = stack.pop();
+
+      if (expr[i] === "-") {
+        stack.push(subtract(first, second));
+      } else if (expr[i] === "+") {
+        stack.push(add(first, second));
+      } else if (expr[i] === "*") {
+        stack.push(multiply(first, second));
+      } else {
+        stack.push(divide(first, second));
+      }
+    }
+  }
+
+  return stack.peek();
 }
