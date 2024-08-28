@@ -1,3 +1,5 @@
+import { evaluate, parse } from "./Parser";
+
 const input: HTMLDivElement | null = document.querySelector(".input");
 
 /**
@@ -13,6 +15,18 @@ export function updateDisplay() {
           input.textContent = btn.textContent;
         } else if (input?.textContent) {
           input.textContent += btn.textContent;
+        }
+      } else {
+        const expr = input?.textContent;
+        let result = 0;
+
+        if (expr) {
+          const tokens = parse(expr);
+          result = evaluate(tokens);
+        }
+
+        if (input) {
+          input.textContent = result.toString();
         }
       }
     });
