@@ -76,16 +76,16 @@ export function parse(expr: string): string[] {
   const stack = new Stack<string>();
   const output: string[] = [];
 
-  for (let i = 0; i < expr.length; i++) {
-    if (expr[i] == " ") {
+  for (let char of expr) {
+    if (char == " ") {
       continue;
-    } else if (isNumber(expr[i])) {
-      output.push(expr[i]);
-    } else if (isOperator(expr[i])) {
-      processOperator(expr[i], stack, output);
-    } else if (expr[i] == "(") {
-      stack.push(expr[i]);
-    } else if (expr[i] == ")") {
+    } else if (isNumber(char)) {
+      output.push(char);
+    } else if (isOperator(char)) {
+      processOperator(char, stack, output);
+    } else if (char == "(") {
+      stack.push(char);
+    } else if (char == ")") {
       processRightBracket(stack, output);
     }
   }
