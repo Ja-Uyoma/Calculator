@@ -117,9 +117,9 @@ export function evaluate(expr: string[]): number {
         stack.push(subtract(first, second));
       } else if (token === "+") {
         stack.push(add(first, second));
-      } else if (token === "*" || token === "×") {
+      } else if (token === "×") {
         stack.push(multiply(first, second));
-      } else if (token === "/" || token === "÷") {
+      } else if (token === "÷") {
         stack.push(divide(first, second));
       }
     }
