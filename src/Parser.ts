@@ -24,7 +24,7 @@ export function isOperator(expr: string): boolean {
  * @returns True if the given character is a number, false otherwise
  */
 export function isNumber(expr: string): boolean {
-  const result = parseInt(expr);
+  const result = parseFloat(expr);
 
   if (isNaN(result)) {
     return false;
