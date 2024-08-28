@@ -1,6 +1,8 @@
 export interface Operator {
-  symbol: string;
-  precedence: number;
+  [key: string]: {
+    precedence: number;
+    associativity: string;
+  };
 }
 
 export const Operators = new Map<string, number>([
@@ -13,7 +15,7 @@ export const Operators = new Map<string, number>([
 ]);
 
 /* Operators and their precedence and associativity */
-export const operators = {
+export const operators: Operator = {
   "^": {
     precedence: 4,
     associativity: "right",
