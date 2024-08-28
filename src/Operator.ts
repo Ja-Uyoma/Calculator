@@ -9,7 +9,7 @@ export const Operators = new Map<string, number>([
   ["-", 2],
   ["+", 2],
   ["×", 3],
-  ["÷", 4],
+  ["÷", 3],
 ]);
 
 /* Operators and their precedence and associativity */
