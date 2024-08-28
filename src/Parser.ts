@@ -9,12 +9,12 @@ import { add, divide, multiply, subtract } from "./MathOperations";
  */
 export function isOperator(expr: string): boolean {
   return (
-    expr.includes("+") ||
-    expr.includes("-") ||
-    expr.includes("*") ||
-    expr.includes("×") ||
-    expr.includes("/") ||
-    expr.includes("÷")
+    expr === "+" ||
+    expr === "-" ||
+    expr === "*" ||
+    expr === "×" ||
+    expr === "/" ||
+    expr === "÷"
   );
 }
 
