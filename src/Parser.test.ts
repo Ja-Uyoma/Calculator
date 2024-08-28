@@ -83,27 +83,27 @@ describe("processOperator", () => {
     processOperator("-", stack, output);
 
     expect(stack.peek()).toBe("-");
-    expect(output).toEqual(["÷", "×", "+"]);
+    expect(output).toEqual(["÷", "×"]);
   });
 });
 
 describe("parse", () => {
   it("converts an infix expression into Reverse Polish Notation", () => {
-    expect(parse("1 + 1 - 2")).toEqual(["1", "1", "+", "2", "-"]);
+    expect(parse("1 + 1 - 2")).toEqual(["1", "1", "2", "-", "+"]);
     expect(parse("1 + 1 - 2 × 4 + 8 ÷ 2 - 1")).toEqual([
       "1",
       "1",
-      "+",
       "2",
       "4",
       "×",
       "8",
       "2",
       "÷",
-      "+",
       "1",
       "-",
+      "+",
       "-",
+      "+",
     ]);
   });
 });
