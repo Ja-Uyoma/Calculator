@@ -6,7 +6,7 @@ export interface Operator {
 }
 
 export const Operators = new Map<string, number>([
-  ["-", 1],
+  ["-", 2],
   ["+", 2],
   ["×", 3],
   ["÷", 4],
