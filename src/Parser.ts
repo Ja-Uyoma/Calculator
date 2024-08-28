@@ -50,35 +50,6 @@ export function isNumber(expr: string): boolean {
 }
 
 /**
- * Parse an arithmetic expression from infix form to Reverse Polish Notation
- * @param expr The mathematical expression in infix form to be parsed
- * @returns The expression in Reverse Polish Notation
- */
-export function parse(expr: string): string[] {
-  const input = trimWhitespace(expr);
-  const stack = new Stack<string>();
-  const output: string[] = [];
-
-  for (let i = 0; i < input.length; i++) {
-    if (isNumber(input[i])) {
-      output.push(input[i]);
-    } else if (isOperator(input[i])) {
-      processOperator(input[i], stack, output);
-    } else if (input[i] == "(") {
-      stack.push(input[i]);
-    } else if (input[i] == ")") {
-      processRightBracket(stack, output);
-    }
-  }
-
-  while (!stack.empty()) {
-    output.push(stack.pop());
-  }
-
-  return output;
-}
-
-/**
  * Handle parsing whenever an operator is encountered
  * @param operator The current operator in the expression
  * @param stack The stack of operator tokens
@@ -110,4 +81,33 @@ export function processRightBracket(stack: Stack<string>, output: string[]) {
   }
 
   stack.pop();
+}
+
+/**
+ * Parse an arithmetic expression from infix form to Reverse Polish Notation
+ * @param expr The mathematical expression in infix form to be parsed
+ * @returns The expression in Reverse Polish Notation
+ */
+export function parse(expr: string): string[] {
+  const input = trimWhitespace(expr);
+  const stack = new Stack<string>();
+  const output: string[] = [];
+
+  for (let i = 0; i < input.length; i++) {
+    if (isNumber(input[i])) {
+      output.push(input[i]);
+    } else if (isOperator(input[i])) {
+      processOperator(input[i], stack, output);
+    } else if (input[i] == "(") {
+      stack.push(input[i]);
+    } else if (input[i] == ")") {
+      processRightBracket(stack, output);
+    }
+  }
+
+  while (!stack.empty()) {
+    output.push(stack.pop());
+  }
+
+  return output;
 }
