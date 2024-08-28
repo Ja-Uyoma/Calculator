@@ -105,21 +105,21 @@ export function parse(expr: string): string[] {
 export function evaluate(expr: string[]): number {
   const stack = new Stack<number>();
 
-  for (let i = 0; i < expr.length; i++) {
-    if (!isOperator(expr[i])) {
-      stack.push(parseInt(expr[i]));
+  for (let token of expr) {
+    if (!isOperator(token)) {
+      stack.push(parseInt(token));
       continue;
     } else {
       const second = stack.pop();
       const first = stack.pop();
 
-      if (expr[i] === "-") {
+      if (token === "-") {
         stack.push(subtract(first, second));
-      } else if (expr[i] === "+") {
+      } else if (token === "+") {
         stack.push(add(first, second));
-      } else if (expr[i] === "*" || expr[i] === "×") {
+      } else if (token === "*" || token === "×") {
         stack.push(multiply(first, second));
-      } else if (expr[i] === "/" || expr[i] === "÷") {
+      } else if (token === "/" || token === "÷") {
         stack.push(divide(first, second));
       }
     }
