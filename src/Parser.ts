@@ -92,18 +92,19 @@ export function processRightBracket(stack: Stack<string>, output: string[]) {
  * @returns The expression in Reverse Polish Notation
  */
 export function parse(expr: string): string[] {
-  const input = trimWhitespace(expr);
   const stack = new Stack<string>();
   const output: string[] = [];
 
-  for (let i = 0; i < input.length; i++) {
-    if (isNumber(input[i])) {
-      output.push(input[i]);
-    } else if (isOperator(input[i])) {
-      processOperator(input[i], stack, output);
-    } else if (input[i] == "(") {
-      stack.push(input[i]);
-    } else if (input[i] == ")") {
+  for (let i = 0; i < expr.length; i++) {
+    if (expr[i] == " ") {
+      continue;
+    } else if (isNumber(expr[i])) {
+      output.push(expr[i]);
+    } else if (isOperator(expr[i])) {
+      processOperator(expr[i], stack, output);
+    } else if (expr[i] == "(") {
+      stack.push(expr[i]);
+    } else if (expr[i] == ")") {
       processRightBracket(stack, output);
     }
   }
