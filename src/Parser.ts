@@ -31,7 +31,9 @@ export function isOperator(expr: string): boolean {
     expr.includes("+") ||
     expr.includes("-") ||
     expr.includes("*") ||
-    expr.includes("/")
+    expr.includes("×") ||
+    expr.includes("/") ||
+    expr.includes("÷")
   );
 }
 
@@ -133,9 +135,9 @@ export function evaluate(expr: string[]): number {
         stack.push(subtract(first, second));
       } else if (expr[i] === "+") {
         stack.push(add(first, second));
-      } else if (expr[i] === "*") {
+      } else if (expr[i] === "*" || expr[i] === "×") {
         stack.push(multiply(first, second));
-      } else {
+      } else if (expr[i] === "/" || expr[i] === "÷") {
         stack.push(divide(first, second));
       }
     }
