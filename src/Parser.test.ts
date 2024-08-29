@@ -63,7 +63,7 @@ describe("processRightBracket", () => {
     processRightBracket(stack, output);
 
     expect(output).toStrictEqual([]);
-    expect(stack.peek()).toBe("1");
+    expect(stack.peek()).toBe("÷");
   });
 });
 
