@@ -35,7 +35,7 @@ export function isNumber(expr: string): boolean {
 export function processOperator(
   operator: string,
   stack: Stack<string>,
-  output: string[]
+  output: number[]
 ) {
   while (
     !stack.empty() &&
@@ -55,7 +55,7 @@ export function processOperator(
  * @param stack The stack containing tokens
  * @param output The array containing the result of calling this function
  */
-export function processRightBracket(stack: Stack<string>, output: string[]) {
+export function processRightBracket(stack: Stack<string>, output: number[]) {
   while (!stack.empty() && stack.peek() !== "(") {
     evaluate(stack.pop(), output);
   }
@@ -70,13 +70,13 @@ export function processRightBracket(stack: Stack<string>, output: string[]) {
  */
 export function parseAndEvaluate(expr: string): number {
   const stack = new Stack<string>();
-  const output: string[] = [];
+  const output: number[] = [];
 
   for (let char of expr) {
     if (char == " ") {
       continue;
     } else if (isNumber(char)) {
-      output.push(char);
+      output.push(parseFloat(char));
     } else if (isOperator(char)) {
       processOperator(char, stack, output);
     } else if (char == "(") {
@@ -92,7 +92,7 @@ export function parseAndEvaluate(expr: string): number {
     evaluate(stack.pop(), output);
   }
 
-  return parseFloat(output[0]);
+  return output[0];
 }
 
 /**
@@ -100,24 +100,24 @@ export function parseAndEvaluate(expr: string): number {
  * @param operator The arithmetic operator
  * @param output A buffer containing the intermediate results
  */
-export function evaluate(operator: string, output: string[]) {
+export function evaluate(operator: string, output: number[]) {
   if (output.length < 2) {
     return;
   }
 
-  const right = parseFloat(output.pop()!);
-  const left = parseFloat(output.pop()!);
+  const right = output.pop()!;
+  const left = output.pop()!;
 
   if (operator === "-") {
-    output.push(subtract(left, right).toString());
+    output.push(subtract(left, right));
   } else if (operator === "+") {
-    output.push(add(left, right).toString());
+    output.push(add(left, right));
   } else if (operator === "×") {
-    output.push(multiply(left, right).toString());
+    output.push(multiply(left, right));
   } else if (operator === "÷") {
-    output.push(divide(left, right).toString());
+    output.push(divide(left, right));
   } else if (operator === "^") {
-    output.push((left ** right).toString());
+    output.push(left ** right);
   } else {
     throw new Error(`Invalid operation: ${operator}`);
   }
