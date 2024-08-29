@@ -46,7 +46,7 @@ describe("processRightBracket", () => {
 
     processRightBracket(stack, output);
 
-    expect(output).toEqual(["4", "3", "2"]);
+    expect(output).toStrictEqual(["4", "3", "2"]);
     expect(stack.peek()).toBe("1");
   });
 });
@@ -94,7 +94,7 @@ describe("processOperator", () => {
     processOperator("-", stack, output);
 
     expect(stack.peek()).toBe("-");
-    expect(output).toEqual(["÷", "×", "+"]);
+    expect(output).toStrictEqual(["÷", "×", "+"]);
   });
 });
 
@@ -111,7 +111,7 @@ describe("evaluate", () => {
 
     evaluate("+", output);
 
-    expect(output).toEqual([]);
+    expect(output).toStrictEqual([]);
   });
 
   it("Pushes the difference of its entries to the output array when called with the - operator", () => {
