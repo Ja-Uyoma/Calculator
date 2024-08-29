@@ -106,7 +106,7 @@ describe("parseAndEvaluate", () => {
 });
 
 describe("evaluate", () => {
-  it("returns early if the output array is empty", () => {
+  it("returns early if the output array has less than 2 entries", () => {
     let output: string[] = [];
 
     evaluate("+", output);
