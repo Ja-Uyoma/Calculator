@@ -97,8 +97,8 @@ describe("processOperator", () => {
   });
 });
 
-describe("parse", () => {
-  it("converts an infix expression into Reverse Polish Notation", () => {
+describe("parseAndEvaluate", () => {
+  it("converts an infix expression into Reverse Polish Notation and evaluates it", () => {
     expect(parseAndEvaluate("1 + 1 - 2")).toBe(0);
     expect(parseAndEvaluate("1 + 1 - 2 × 4 + 8 ÷ 2 - 1")).toBe(-3);
   });
