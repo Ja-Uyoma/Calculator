@@ -128,10 +128,6 @@ export function parseAndEvaluate(expr: string): number {
     // output.push(stack.pop());
     const operator = stack.pop();
 
-    if (operator === "(") {
-      break;
-    }
-
     const right = parseFloat(output.pop()!);
     const left = parseFloat(output.pop()!);
 
