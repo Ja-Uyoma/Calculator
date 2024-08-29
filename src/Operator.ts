@@ -5,13 +5,6 @@ export interface Operator {
   };
 }
 
-export const Operators = new Map<string, number>([
-  ["-", 2],
-  ["+", 2],
-  ["×", 3],
-  ["÷", 3],
-]);
-
 /* Operators and their precedence and associativity */
 export const operators: Operator = {
   "^": {
