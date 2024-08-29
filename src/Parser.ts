@@ -39,7 +39,10 @@ export function processOperator(
 ) {
   while (
     !stack.empty() &&
-    Operators[stack.peek()].precedence > Operators[operator].precedence
+    stack.peek() != "(" &&
+    (Operators[stack.peek()].precedence > Operators[operator].precedence ||
+      (Operators[stack.peek()].precedence === Operators[operator].precedence &&
+        Operators[operator].associativity === "left"))
   ) {
     output.push(stack.pop());
   }
