@@ -6,7 +6,7 @@ export interface Operator {
 }
 
 /* Operators and their precedence and associativity */
-export const operators: Operator = {
+export const Operators: Operator = {
   "^": {
     precedence: 4,
     associativity: "right",

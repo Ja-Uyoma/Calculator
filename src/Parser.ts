@@ -1,5 +1,5 @@
 import { Stack } from "./Stack";
-import { operators } from "./Operator";
+import { Operators } from "./Operator";
 import { add, divide, multiply, subtract } from "./MathOperations";
 
 /**
@@ -39,7 +39,7 @@ export function processOperator(
 ) {
   while (
     !stack.empty() &&
-    operators[stack.peek()].precedence > operators[operator].precedence
+    Operators[stack.peek()].precedence > Operators[operator].precedence
   ) {
     output.push(stack.pop());
   }
