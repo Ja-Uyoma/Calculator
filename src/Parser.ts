@@ -47,10 +47,6 @@ export function processOperator(
     // output.push(stack.pop());
     const operator = stack.pop();
 
-    if (operator === "(") {
-      return;
-    }
-
     const right = parseFloat(output.pop()!);
     const left = parseFloat(output.pop()!);
 
@@ -81,10 +77,6 @@ export function processRightBracket(stack: Stack<string>, output: string[]) {
   while (!stack.empty() && stack.peek() !== "(") {
     // output.push(stack.pop());
     const operator = stack.pop();
-
-    if (operator === "(") {
-      return;
-    }
 
     const right = parseFloat(output.pop()!);
     const left = parseFloat(output.pop()!);
