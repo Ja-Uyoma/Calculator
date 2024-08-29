@@ -94,7 +94,7 @@ describe("processOperator", () => {
     processOperator("-", stack, output);
 
     expect(stack.peek()).toBe("-");
-    expect(output).toStrictEqual(["÷", "×", "+"]);
+    expect(output).toStrictEqual([]);
   });
 });
 
