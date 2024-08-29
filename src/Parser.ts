@@ -44,7 +44,29 @@ export function processOperator(
       (Operators[stack.peek()].precedence === Operators[operator].precedence &&
         Operators[operator].associativity === "left"))
   ) {
-    output.push(stack.pop());
+    // output.push(stack.pop());
+    const operator = stack.pop();
+
+    if (operator === "(") {
+      return;
+    }
+
+    const right = parseFloat(output.pop()!);
+    const left = parseFloat(output.pop()!);
+
+    if (operator === "-") {
+      output.push(subtract(left, right).toString());
+    } else if (operator === "+") {
+      output.push(add(left, right).toString());
+    } else if (operator === "×") {
+      output.push(multiply(left, right).toString());
+    } else if (operator === "÷") {
+      output.push(divide(left, right).toString());
+    } else if (operator === "^") {
+      output.push((left ** right).toString());
+    } else {
+      throw new Error(`Invalid operation: ${operator}`);
+    }
   }
 
   stack.push(operator);
@@ -57,7 +79,29 @@ export function processOperator(
  */
 export function processRightBracket(stack: Stack<string>, output: string[]) {
   while (!stack.empty() && stack.peek() !== "(") {
-    output.push(stack.pop());
+    // output.push(stack.pop());
+    const operator = stack.pop();
+
+    if (operator === "(") {
+      return;
+    }
+
+    const right = parseFloat(output.pop()!);
+    const left = parseFloat(output.pop()!);
+
+    if (operator === "-") {
+      output.push(subtract(left, right).toString());
+    } else if (operator === "+") {
+      output.push(add(left, right).toString());
+    } else if (operator === "×") {
+      output.push(multiply(left, right).toString());
+    } else if (operator === "÷") {
+      output.push(divide(left, right).toString());
+    } else if (operator === "^") {
+      output.push((left ** right).toString());
+    } else {
+      throw new Error(`Invalid operation: ${operator}`);
+    }
   }
 
   stack.pop();
@@ -68,7 +112,7 @@ export function processRightBracket(stack: Stack<string>, output: string[]) {
  * @param expr The mathematical expression in infix form to be parsed
  * @returns The expression in Reverse Polish Notation
  */
-export function parse(expr: string): string[] {
+export function parse(expr: string): number {
   const stack = new Stack<string>();
   const output: string[] = [];
 
@@ -89,10 +133,32 @@ export function parse(expr: string): string[] {
   }
 
   while (!stack.empty()) {
-    output.push(stack.pop());
+    // output.push(stack.pop());
+    const operator = stack.pop();
+
+    if (operator === "(") {
+      break;
+    }
+
+    const right = parseFloat(output.pop()!);
+    const left = parseFloat(output.pop()!);
+
+    if (operator === "-") {
+      output.push(subtract(left, right).toString());
+    } else if (operator === "+") {
+      output.push(add(left, right).toString());
+    } else if (operator === "×") {
+      output.push(multiply(left, right).toString());
+    } else if (operator === "÷") {
+      output.push(divide(left, right).toString());
+    } else if (operator === "^") {
+      output.push((left ** right).toString());
+    } else {
+      throw new Error(`Invalid operation: ${operator}`);
+    }
   }
 
-  return output;
+  return parseFloat(output[0]);
 }
 
 /**
