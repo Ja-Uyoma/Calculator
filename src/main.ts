@@ -1,14 +1,9 @@
-"use strict";
-
-import { updateYear } from "./UpdateYear.js";
 import {
   updateDisplay,
   clearDisplay,
   deleteCharacter,
-} from "./DOMManipulation.js";
+} from "./DOMManipulation.ts";
 
 updateDisplay();
 clearDisplay();
 deleteCharacter();
-
-updateYear();

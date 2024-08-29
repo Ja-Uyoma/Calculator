@@ -1,4 +1,4 @@
-import IllegalOperationException from "./IllegalOperationException.js";
+import IllegalOperationException from "./IllegalOperationException.ts";
 
 /**
  * Add two numbers
@@ -6,7 +6,7 @@ import IllegalOperationException from "./IllegalOperationException.js";
  * @param {number} second The second number in the operation
  * @returns The sum of the two numbers
  */
-function add(first, second) {
+function add(first: number, second: number): number {
   return first + second;
 }
 
@@ -16,7 +16,7 @@ function add(first, second) {
  * @param {number} second The second number in the operation
  * @returns The difference of the two numbers
  */
-function subtract(first, second) {
+function subtract(first: number, second: number): number {
   return first - second;
 }
 
@@ -26,7 +26,7 @@ function subtract(first, second) {
  * @param {number} second The second number in the operation
  * @returns The product of the two numbers
  */
-function multiply(first, second) {
+function multiply(first: number, second: number): number {
   return first * second;
 }
 
@@ -36,7 +36,7 @@ function multiply(first, second) {
  * @param {number} second The second number in the operation
  * @returns The quotient of the two numbers
  */
-function divide(first, second) {
+function divide(first: number, second: number): number {
   if (second === 0) {
     throw new IllegalOperationException("Division by zero is undefined");
   }
