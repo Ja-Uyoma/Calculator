@@ -3,38 +3,12 @@ import { Operators } from "./Operator";
 import { add, divide, multiply, subtract } from "./MathOperations";
 
 /**
- * Trim the whitespace from a given string
- * @param expr The string from which whitespace is to be eliminated
- * @returns A string containing no whitespace
- */
-export function trimWhitespace(expr: string): string {
-  let output = "";
-
-  for (let i = 0; i < expr.length; i++) {
-    if (expr[i] === " ") {
-      continue;
-    } else {
-      output += expr[i];
-    }
-  }
-
-  return output;
-}
-
-/**
  * Determine if a given character is an operator or not
  * @param expr The search string
  * @returns True if the given character is an operator, false otherwise
  */
 export function isOperator(expr: string): boolean {
-  return (
-    expr.includes("+") ||
-    expr.includes("-") ||
-    expr.includes("*") ||
-    expr.includes("×") ||
-    expr.includes("/") ||
-    expr.includes("÷")
-  );
+  return expr === "-" || expr === "+" || expr === "×" || expr === "÷";
 }
 
 /**
@@ -43,7 +17,7 @@ export function isOperator(expr: string): boolean {
  * @returns True if the given character is a number, false otherwise
  */
 export function isNumber(expr: string): boolean {
-  const result = parseInt(expr);
+  const result = parseFloat(expr);
 
   if (isNaN(result)) {
     return false;
@@ -65,7 +39,10 @@ export function processOperator(
 ) {
   while (
     !stack.empty() &&
-    Operators.get(stack.peek())! > Operators.get(operator)!
+    stack.peek() != "(" &&
+    (Operators[stack.peek()].precedence > Operators[operator].precedence ||
+      (Operators[stack.peek()].precedence === Operators[operator].precedence &&
+        Operators[operator].associativity === "left"))
   ) {
     output.push(stack.pop());
   }
@@ -92,19 +69,22 @@ export function processRightBracket(stack: Stack<string>, output: string[]) {
  * @returns The expression in Reverse Polish Notation
  */
 export function parse(expr: string): string[] {
-  const input = trimWhitespace(expr);
   const stack = new Stack<string>();
   const output: string[] = [];
 
-  for (let i = 0; i < input.length; i++) {
-    if (isNumber(input[i])) {
-      output.push(input[i]);
-    } else if (isOperator(input[i])) {
-      processOperator(input[i], stack, output);
-    } else if (input[i] == "(") {
-      stack.push(input[i]);
-    } else if (input[i] == ")") {
+  for (let char of expr) {
+    if (char == " ") {
+      continue;
+    } else if (isNumber(char)) {
+      output.push(char);
+    } else if (isOperator(char)) {
+      processOperator(char, stack, output);
+    } else if (char == "(") {
+      stack.push(char);
+    } else if (char == ")") {
       processRightBracket(stack, output);
+    } else {
+      throw new Error(`Invalid token: ${char}`);
     }
   }
 
@@ -123,21 +103,21 @@ export function parse(expr: string): string[] {
 export function evaluate(expr: string[]): number {
   const stack = new Stack<number>();
 
-  for (let i = 0; i < expr.length; i++) {
-    if (!isOperator(expr[i])) {
-      stack.push(parseInt(expr[i]));
+  for (let token of expr) {
+    if (!isOperator(token)) {
+      stack.push(parseInt(token));
       continue;
     } else {
       const second = stack.pop();
       const first = stack.pop();
 
-      if (expr[i] === "-") {
+      if (token === "-") {
         stack.push(subtract(first, second));
-      } else if (expr[i] === "+") {
+      } else if (token === "+") {
         stack.push(add(first, second));
-      } else if (expr[i] === "*" || expr[i] === "×") {
+      } else if (token === "×") {
         stack.push(multiply(first, second));
-      } else if (expr[i] === "/" || expr[i] === "÷") {
+      } else if (token === "÷") {
         stack.push(divide(first, second));
       }
     }

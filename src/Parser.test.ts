@@ -1,5 +1,4 @@
 import {
-  trimWhitespace,
   isOperator,
   isNumber,
   processRightBracket,
@@ -11,32 +10,12 @@ import {
 import { describe, expect, it } from "vitest";
 import { Stack } from "./Stack";
 
-describe("trimWhitespace", () => {
-  it("trims whitespace in the middle of a string", () => {
-    const input = "The quick brown fox jumped over the lazy dog";
-    const output = trimWhitespace(input);
-    expect(output).toBe("Thequickbrownfoxjumpedoverthelazydog");
-  });
-
-  it("trims whitespace at the beginning of a string", () => {
-    const input = " The quick";
-    const output = trimWhitespace(input);
-    expect(output).toBe("Thequick");
-  });
-
-  it("trims whitespace at the end of a string", () => {
-    const input = "The quick ";
-    const output = trimWhitespace(input);
-    expect(output).toBe("Thequick");
-  });
-});
-
 describe("isOperator", () => {
   it("returns true if a given character is an operator", () => {
     expect(isOperator("+")).toBe(true);
     expect(isOperator("-")).toBe(true);
-    expect(isOperator("*")).toBe(true);
-    expect(isOperator("/")).toBe(true);
+    expect(isOperator("×")).toBe(true);
+    expect(isOperator("÷")).toBe(true);
   });
 
   it("returns false if a given character is not an operator", () => {
@@ -86,44 +65,55 @@ describe("processOperator", () => {
     const stack = new Stack<string>();
     const output: string[] = [];
 
-    stack.push("*");
+    stack.push("×");
 
-    processOperator("/", stack, output);
+    processOperator("÷", stack, output);
 
-    expect(stack.peek()).toEqual("/");
+    expect(stack.peek()).toEqual("÷");
   });
 
-  it("Pops operators from the stack onto the output queue if the currnt operator has lower precedence", () => {
+  it("Pushes the current operator on the stack if the top of the stack is a ( character", () => {
+    const stack = new Stack<string>();
+    const output: string[] = [];
+
+    stack.push("(");
+
+    processOperator("÷", stack, output);
+
+    expect(stack.peek()).toBe("÷");
+  });
+
+  it("Pops operators from the stack onto the output queue if the current operator has lower precedence", () => {
     const stack = new Stack<string>();
     const output: string[] = [];
 
     stack.push("+");
-    stack.push("*");
-    stack.push("/");
+    stack.push("×");
+    stack.push("÷");
 
     processOperator("-", stack, output);
 
     expect(stack.peek()).toBe("-");
-    expect(output).toEqual(["/", "*", "+"]);
+    expect(output).toEqual(["÷", "×", "+"]);
   });
 });
 
 describe("parse", () => {
   it("converts an infix expression into Reverse Polish Notation", () => {
     expect(parse("1 + 1 - 2")).toEqual(["1", "1", "+", "2", "-"]);
-    expect(parse("1 + 1 - 2 * 4 + 8 / 2 - 1")).toEqual([
+    expect(parse("1 + 1 - 2 × 4 + 8 ÷ 2 - 1")).toEqual([
       "1",
       "1",
       "+",
       "2",
       "4",
-      "*",
+      "×",
+      "-",
       "8",
       "2",
-      "/",
+      "÷",
       "+",
       "1",
-      "-",
       "-",
     ]);
   });
@@ -131,9 +121,9 @@ describe("parse", () => {
 
 describe("evaluate", () => {
   it("evaluates a given mathematical expression", () => {
-    const expr = parse("1 + 1 - 2 * 4 + 8 / 2 - 1");
+    const expr = parse("1 + 1 - 2 × 4 + 8 ÷ 2 - 1");
     const result = evaluate(expr);
 
-    expect(result).toBe(-9);
+    expect(result).toBe(-3);
   });
 });
