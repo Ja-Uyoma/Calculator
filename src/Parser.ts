@@ -108,9 +108,9 @@ export function processRightBracket(stack: Stack<string>, output: string[]) {
 }
 
 /**
- * Parse an arithmetic expression from infix form to Reverse Polish Notation
+ * Parse an arithmetic expression from infix form to Reverse Polish Notation and evaluate it
  * @param expr The mathematical expression in infix form to be parsed
- * @returns The expression in Reverse Polish Notation
+ * @returns The result of evaluating the expression
  */
 export function parseAndEvaluate(expr: string): number {
   const stack = new Stack<string>();
