@@ -101,7 +101,7 @@ export function parseAndEvaluate(expr: string): number {
  * @param output A buffer containing the intermediate results
  */
 export function evaluate(operator: string, output: string[]) {
-  if (output.length === 0) {
+  if (output.length < 2) {
     return;
   }
 
