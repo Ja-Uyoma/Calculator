@@ -49,6 +49,22 @@ describe("processRightBracket", () => {
     expect(output).toStrictEqual([]);
     expect(stack.peek()).toBe("1");
   });
+
+  it("Leaves the output array unmodified if it has less than 2 entries", () => {
+    const stack = new Stack<string>();
+    const output: string[] = [];
+
+    stack.push("1");
+    stack.push("(");
+    stack.push("2");
+    stack.push("3");
+    stack.push("4");
+
+    processRightBracket(stack, output);
+
+    expect(output).toStrictEqual([]);
+    expect(stack.peek()).toBe("1");
+  });
 });
 
 describe("processOperator", () => {
