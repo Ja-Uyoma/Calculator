@@ -3,7 +3,7 @@ import {
   isNumber,
   processRightBracket,
   processOperator,
-  parse,
+  parseAndEvaluate,
 } from "./Parser";
 
 import { describe, expect, it } from "vitest";
@@ -99,7 +99,7 @@ describe("processOperator", () => {
 
 describe("parse", () => {
   it("converts an infix expression into Reverse Polish Notation", () => {
-    expect(parse("1 + 1 - 2")).toBe(0);
-    expect(parse("1 + 1 - 2 × 4 + 8 ÷ 2 - 1")).toBe(-3);
+    expect(parseAndEvaluate("1 + 1 - 2")).toBe(0);
+    expect(parseAndEvaluate("1 + 1 - 2 × 4 + 8 ÷ 2 - 1")).toBe(-3);
   });
 });
