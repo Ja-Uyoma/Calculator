@@ -160,34 +160,3 @@ export function parse(expr: string): number {
 
   return parseFloat(output[0]);
 }
-
-/**
- * Evaluate an arithmetic expression and return the result
- * @param expr An arithmetic expression in postfix (or Reverse Polish) notation
- * @returns The result of evaluating the expression
- */
-export function evaluate(expr: string[]): number {
-  const stack = new Stack<number>();
-
-  for (let token of expr) {
-    if (!isOperator(token)) {
-      stack.push(parseInt(token));
-      continue;
-    } else {
-      const second = stack.pop();
-      const first = stack.pop();
-
-      if (token === "-") {
-        stack.push(subtract(first, second));
-      } else if (token === "+") {
-        stack.push(add(first, second));
-      } else if (token === "×") {
-        stack.push(multiply(first, second));
-      } else if (token === "÷") {
-        stack.push(divide(first, second));
-      }
-    }
-  }
-
-  return stack.peek();
-}
