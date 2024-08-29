@@ -54,11 +54,11 @@ describe("processRightBracket", () => {
     const stack = new Stack<string>();
     const output: string[] = [];
 
-    stack.push("1");
+    stack.push("÷");
     stack.push("(");
-    stack.push("2");
-    stack.push("3");
-    stack.push("4");
+    stack.push("×");
+    stack.push("+");
+    stack.push("-");
 
     processRightBracket(stack, output);
 
