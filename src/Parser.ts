@@ -101,6 +101,10 @@ export function parseAndEvaluate(expr: string): number {
  * @param output A buffer containing the intermediate results
  */
 export function evaluate(operator: string, output: string[]) {
+  if (output.length === 0) {
+    return;
+  }
+
   const right = parseFloat(output.pop()!);
   const left = parseFloat(output.pop()!);
 
