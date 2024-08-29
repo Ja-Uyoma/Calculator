@@ -65,8 +65,7 @@ export function printResult() {
 
       if (expr) {
         try {
-          const tokens = parse(expr);
-          result = evaluate(tokens);
+          result = parse(expr);
           input.textContent = result.toString();
         } catch (err) {
           console.error(err);
