@@ -44,7 +44,6 @@ export function processOperator(
       (Operators[stack.peek()].precedence === Operators[operator].precedence &&
         Operators[operator].associativity === "left"))
   ) {
-    // output.push(stack.pop());
     evaluate(stack.pop(), output);
   }
 
@@ -58,7 +57,6 @@ export function processOperator(
  */
 export function processRightBracket(stack: Stack<string>, output: string[]) {
   while (!stack.empty() && stack.peek() !== "(") {
-    // output.push(stack.pop());
     evaluate(stack.pop(), output);
   }
 
@@ -91,7 +89,6 @@ export function parseAndEvaluate(expr: string): number {
   }
 
   while (!stack.empty() && stack.peek() != "(") {
-    // output.push(stack.pop());
     evaluate(stack.pop(), output);
   }
 
