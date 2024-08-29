@@ -4,7 +4,6 @@ import {
   processRightBracket,
   processOperator,
   parse,
-  evaluate,
 } from "./Parser";
 
 import { describe, expect, it } from "vitest";
