@@ -16,18 +16,6 @@ export function updateDisplay() {
         } else if (input?.textContent) {
           input.textContent += btn.textContent;
         }
-      } else {
-        const expr = input?.textContent;
-        let result = 0;
-
-        if (expr) {
-          const tokens = parse(expr);
-          result = evaluate(tokens);
-        }
-
-        if (input) {
-          input.textContent = result.toString();
-        }
       }
     });
   });
@@ -62,4 +50,29 @@ export function deleteCharacter() {
       input.textContent = "0";
     }
   });
+}
+
+/**
+ * Print the result of evaluating the entered expression to the screen
+ */
+export function printResult() {
+  const btn: HTMLButtonElement | null = document.querySelector(".btn-eq");
+
+  if (btn && input) {
+    btn.addEventListener("click", () => {
+      const expr = input.textContent;
+      let result = 0;
+
+      if (expr) {
+        try {
+          const tokens = parse(expr);
+          result = evaluate(tokens);
+          input.textContent = result.toString();
+        } catch (err) {
+          console.error(err);
+          input.textContent = "Math Error";
+        }
+      }
+    });
+  }
 }
