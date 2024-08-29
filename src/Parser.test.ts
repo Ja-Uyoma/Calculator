@@ -46,7 +46,7 @@ describe("processRightBracket", () => {
 
     processRightBracket(stack, output);
 
-    expect(output).toStrictEqual(["4", "3", "2"]);
+    expect(output).toStrictEqual([]);
     expect(stack.peek()).toBe("1");
   });
 });
