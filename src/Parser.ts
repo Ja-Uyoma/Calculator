@@ -148,3 +148,27 @@ export function parseAndEvaluate(expr: string): number {
 
   return parseFloat(output[0]);
 }
+
+/**
+ * Perform an operation depending on the given operator
+ * @param operator The arithmetic operator
+ * @param output A buffer containing the intermediate results
+ */
+export function evaluate(operator: string, output: string[]) {
+  const right = parseFloat(output.pop()!);
+  const left = parseFloat(output.pop()!);
+
+  if (operator === "-") {
+    output.push(subtract(left, right).toString());
+  } else if (operator === "+") {
+    output.push(add(left, right).toString());
+  } else if (operator === "×") {
+    output.push(multiply(left, right).toString());
+  } else if (operator === "÷") {
+    output.push(divide(left, right).toString());
+  } else if (operator === "^") {
+    output.push((left ** right).toString());
+  } else {
+    throw new Error(`Invalid operation: ${operator}`);
+  }
+}
