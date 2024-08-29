@@ -4,6 +4,7 @@ import {
   processRightBracket,
   processOperator,
   parseAndEvaluate,
+  evaluate,
 } from "./Parser";
 
 import { describe, expect, it } from "vitest";
@@ -101,5 +102,15 @@ describe("parseAndEvaluate", () => {
   it("converts an infix expression into Reverse Polish Notation and evaluates it", () => {
     expect(parseAndEvaluate("1 + 1 - 2")).toBe(0);
     expect(parseAndEvaluate("1 + 1 - 2 × 4 + 8 ÷ 2 - 1")).toBe(-3);
+  });
+});
+
+describe("evaluate", () => {
+  it("returns early if the output array is empty", () => {
+    let output: string[] = [];
+
+    evaluate("+", output);
+
+    expect(output).toEqual([]);
   });
 });
