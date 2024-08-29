@@ -83,6 +83,8 @@ export function parse(expr: string): string[] {
       stack.push(char);
     } else if (char == ")") {
       processRightBracket(stack, output);
+    } else {
+      throw new Error(`Invalid token: ${char}`);
     }
   }
 
