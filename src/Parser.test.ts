@@ -69,7 +69,7 @@ describe("processOperator", () => {
 
     processOperator("÷", stack, output);
 
-    expect(stack.peek()).toEqual("÷");
+    expect(stack.peek()).toBe("÷");
   });
 
   it("Pushes the current operator on the stack if the top of the stack is a ( character", () => {
