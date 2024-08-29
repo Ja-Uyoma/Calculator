@@ -1,4 +1,4 @@
-import { evaluate, parse } from "./Parser";
+import { parse } from "./Parser";
 
 const input: HTMLDivElement | null = document.querySelector(".input");
 
