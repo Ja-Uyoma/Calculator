@@ -34,20 +34,20 @@ describe("isNumber", () => {
 });
 
 describe("processRightBracket", () => {
-  it("Pushes stack contents into the output array until it encounters a left bracket", () => {
+  it("Pushes result of calling evaluate with stack contents into the output array until it encounters a left bracket", () => {
     const stack = new Stack<string>();
-    const output: string[] = [];
+    const output: string[] = ["1", "2", "3", "4"];
 
-    stack.push("1");
+    stack.push("÷");
     stack.push("(");
-    stack.push("2");
-    stack.push("3");
-    stack.push("4");
+    stack.push("×");
+    stack.push("+");
+    stack.push("-");
 
     processRightBracket(stack, output);
 
-    expect(output).toStrictEqual([]);
-    expect(stack.peek()).toBe("1");
+    expect(output).toStrictEqual(["1"]);
+    expect(stack.peek()).toBe("÷");
   });
 
   it("Leaves the output array unmodified if it has less than 2 entries", () => {
