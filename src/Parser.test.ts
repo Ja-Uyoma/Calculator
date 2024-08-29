@@ -72,6 +72,17 @@ describe("processOperator", () => {
     expect(stack.peek()).toEqual("÷");
   });
 
+  it("Pushes the current operator on the stack if the top of the stack is a ( character", () => {
+    const stack = new Stack<string>();
+    const output: string[] = [];
+
+    stack.push("(");
+
+    processOperator("÷", stack, output);
+
+    expect(stack.peek()).toBe("÷");
+  });
+
   it("Pops operators from the stack onto the output queue if the current operator has lower precedence", () => {
     const stack = new Stack<string>();
     const output: string[] = [];
