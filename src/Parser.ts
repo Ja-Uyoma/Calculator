@@ -124,7 +124,7 @@ export function parseAndEvaluate(expr: string): number {
     }
   }
 
-  while (!stack.empty()) {
+  while (!stack.empty() && stack.peek() != "(") {
     // output.push(stack.pop());
     const operator = stack.pop();
 
