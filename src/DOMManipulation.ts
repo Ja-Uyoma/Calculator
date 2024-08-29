@@ -1,4 +1,4 @@
-import { evaluate, parse } from "./Parser";
+import { parseAndEvaluate } from "./Parser";
 
 const input: HTMLDivElement | null = document.querySelector(".input");
 
@@ -65,8 +65,7 @@ export function printResult() {
 
       if (expr) {
         try {
-          const tokens = parse(expr);
-          result = evaluate(tokens);
+          result = parseAndEvaluate(expr);
           input.textContent = result.toString();
         } catch (err) {
           console.error(err);

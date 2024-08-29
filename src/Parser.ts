@@ -35,7 +35,7 @@ export function isNumber(expr: string): boolean {
 export function processOperator(
   operator: string,
   stack: Stack<string>,
-  output: string[]
+  output: number[]
 ) {
   while (
     !stack.empty() &&
@@ -44,7 +44,7 @@ export function processOperator(
       (Operators[stack.peek()].precedence === Operators[operator].precedence &&
         Operators[operator].associativity === "left"))
   ) {
-    output.push(stack.pop());
+    evaluate(stack.pop(), output);
   }
 
   stack.push(operator);
@@ -55,28 +55,28 @@ export function processOperator(
  * @param stack The stack containing tokens
  * @param output The array containing the result of calling this function
  */
-export function processRightBracket(stack: Stack<string>, output: string[]) {
+export function processRightBracket(stack: Stack<string>, output: number[]) {
   while (!stack.empty() && stack.peek() !== "(") {
-    output.push(stack.pop());
+    evaluate(stack.pop(), output);
   }
 
   stack.pop();
 }
 
 /**
- * Parse an arithmetic expression from infix form to Reverse Polish Notation
+ * Parse an arithmetic expression from infix form to Reverse Polish Notation and evaluate it
  * @param expr The mathematical expression in infix form to be parsed
- * @returns The expression in Reverse Polish Notation
+ * @returns The result of evaluating the expression
  */
-export function parse(expr: string): string[] {
+export function parseAndEvaluate(expr: string): number {
   const stack = new Stack<string>();
-  const output: string[] = [];
+  const output: number[] = [];
 
   for (let char of expr) {
     if (char == " ") {
       continue;
     } else if (isNumber(char)) {
-      output.push(char);
+      output.push(parseFloat(char));
     } else if (isOperator(char)) {
       processOperator(char, stack, output);
     } else if (char == "(") {
@@ -88,40 +88,37 @@ export function parse(expr: string): string[] {
     }
   }
 
-  while (!stack.empty()) {
-    output.push(stack.pop());
+  while (!stack.empty() && stack.peek() != "(") {
+    evaluate(stack.pop(), output);
   }
 
-  return output;
+  return output[0];
 }
 
 /**
- * Evaluate an arithmetic expression and return the result
- * @param expr An arithmetic expression in postfix (or Reverse Polish) notation
- * @returns The result of evaluating the expression
+ * Perform an operation depending on the given operator
+ * @param operator The arithmetic operator
+ * @param output A buffer containing the intermediate results
  */
-export function evaluate(expr: string[]): number {
-  const stack = new Stack<number>();
-
-  for (let token of expr) {
-    if (!isOperator(token)) {
-      stack.push(parseInt(token));
-      continue;
-    } else {
-      const second = stack.pop();
-      const first = stack.pop();
-
-      if (token === "-") {
-        stack.push(subtract(first, second));
-      } else if (token === "+") {
-        stack.push(add(first, second));
-      } else if (token === "×") {
-        stack.push(multiply(first, second));
-      } else if (token === "÷") {
-        stack.push(divide(first, second));
-      }
-    }
+export function evaluate(operator: string, output: number[]) {
+  if (output.length < 2) {
+    return;
   }
 
-  return stack.peek();
+  const right = output.pop()!;
+  const left = output.pop()!;
+
+  if (operator === "-") {
+    output.push(subtract(left, right));
+  } else if (operator === "+") {
+    output.push(add(left, right));
+  } else if (operator === "×") {
+    output.push(multiply(left, right));
+  } else if (operator === "÷") {
+    output.push(divide(left, right));
+  } else if (operator === "^") {
+    output.push(left ** right);
+  } else {
+    throw new Error(`Invalid operation: ${operator}`);
+  }
 }

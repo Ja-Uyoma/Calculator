@@ -3,7 +3,7 @@ import {
   isNumber,
   processRightBracket,
   processOperator,
-  parse,
+  parseAndEvaluate,
   evaluate,
 } from "./Parser";
 
@@ -34,27 +34,43 @@ describe("isNumber", () => {
 });
 
 describe("processRightBracket", () => {
-  it("Pushes stack contents into the output array until it encounters a left bracket", () => {
+  it("Pushes result of calling evaluate with stack contents into the output array until it encounters a left bracket", () => {
     const stack = new Stack<string>();
-    const output: string[] = [];
+    const output: number[] = [1, 2, 3, 4];
 
-    stack.push("1");
+    stack.push("÷");
     stack.push("(");
-    stack.push("2");
-    stack.push("3");
-    stack.push("4");
+    stack.push("×");
+    stack.push("+");
+    stack.push("-");
 
     processRightBracket(stack, output);
 
-    expect(output).toEqual(["4", "3", "2"]);
-    expect(stack.peek()).toBe("1");
+    expect(output).toStrictEqual([1]);
+    expect(stack.peek()).toBe("÷");
+  });
+
+  it("Leaves the output array unmodified if it has less than 2 entries", () => {
+    const stack = new Stack<string>();
+    const output: number[] = [];
+
+    stack.push("÷");
+    stack.push("(");
+    stack.push("×");
+    stack.push("+");
+    stack.push("-");
+
+    processRightBracket(stack, output);
+
+    expect(output).toStrictEqual([]);
+    expect(stack.peek()).toBe("÷");
   });
 });
 
 describe("processOperator", () => {
   it("Pushes the given operator to the stack if the stack was initially empty", () => {
     const stack = new Stack<string>();
-    const output: string[] = [];
+    const output: number[] = [];
 
     processOperator("+", stack, output);
 
@@ -63,18 +79,18 @@ describe("processOperator", () => {
 
   it("Pushes the current operator on the stack if it has a greater precedence than the one at the top of the stack", () => {
     const stack = new Stack<string>();
-    const output: string[] = [];
+    const output: number[] = [];
 
     stack.push("×");
 
     processOperator("÷", stack, output);
 
-    expect(stack.peek()).toEqual("÷");
+    expect(stack.peek()).toBe("÷");
   });
 
   it("Pushes the current operator on the stack if the top of the stack is a ( character", () => {
     const stack = new Stack<string>();
-    const output: string[] = [];
+    const output: number[] = [];
 
     stack.push("(");
 
@@ -83,9 +99,9 @@ describe("processOperator", () => {
     expect(stack.peek()).toBe("÷");
   });
 
-  it("Pops operators from the stack onto the output queue if the current operator has lower precedence", () => {
+  it("Pops operators from the stack and pushes the result of calling evaluate onto the output queue if the current operator has lower precedence", () => {
     const stack = new Stack<string>();
-    const output: string[] = [];
+    const output: number[] = [1, 2, 3, 4];
 
     stack.push("+");
     stack.push("×");
@@ -94,36 +110,65 @@ describe("processOperator", () => {
     processOperator("-", stack, output);
 
     expect(stack.peek()).toBe("-");
-    expect(output).toEqual(["÷", "×", "+"]);
+    expect(output).toStrictEqual([2.5]);
+  });
+
+  it("Leaves the output array unmodified if it has less than 2 entries", () => {
+    const stack = new Stack<string>();
+    const output: number[] = [];
+
+    stack.push("+");
+    stack.push("×");
+    stack.push("÷");
+
+    processOperator("-", stack, output);
+
+    expect(stack.peek()).toBe("-");
+    expect(output).toStrictEqual([]);
   });
 });
 
-describe("parse", () => {
-  it("converts an infix expression into Reverse Polish Notation", () => {
-    expect(parse("1 + 1 - 2")).toEqual(["1", "1", "+", "2", "-"]);
-    expect(parse("1 + 1 - 2 × 4 + 8 ÷ 2 - 1")).toEqual([
-      "1",
-      "1",
-      "+",
-      "2",
-      "4",
-      "×",
-      "-",
-      "8",
-      "2",
-      "÷",
-      "+",
-      "1",
-      "-",
-    ]);
+describe("parseAndEvaluate", () => {
+  it("converts an infix expression into Reverse Polish Notation and evaluates it", () => {
+    expect(parseAndEvaluate("1 + 1 - 2")).toBe(0);
+    expect(parseAndEvaluate("1 + 1 - 2 × 4 + 8 ÷ 2 - 1")).toBe(-3);
   });
 });
 
 describe("evaluate", () => {
-  it("evaluates a given mathematical expression", () => {
-    const expr = parse("1 + 1 - 2 × 4 + 8 ÷ 2 - 1");
-    const result = evaluate(expr);
+  it("returns early if the output array has less than 2 entries", () => {
+    let output: number[] = [];
 
-    expect(result).toBe(-3);
+    evaluate("+", output);
+
+    expect(output).toStrictEqual([]);
+  });
+
+  it("Pushes the difference of its entries to the output array when called with the - operator", () => {
+    let output: number[] = [1, 2];
+
+    evaluate("-", output);
+    expect(output).toStrictEqual([-1]);
+  });
+
+  it("Pushes the sum of its entries  to the output array when called with the + operator", () => {
+    let output: number[] = [1, 2];
+
+    evaluate("+", output);
+    expect(output).toStrictEqual([3]);
+  });
+
+  it("Pushes the product of its entries  to the output array when called with the × operator", () => {
+    let output: number[] = [1, 2];
+
+    evaluate("×", output);
+    expect(output).toStrictEqual([2]);
+  });
+
+  it("Pushes the quotient of its entries  to the output array when called with the ÷ operator", () => {
+    let output: number[] = [1, 2];
+
+    evaluate("÷", output);
+    expect(output).toStrictEqual([0.5]);
   });
 });
