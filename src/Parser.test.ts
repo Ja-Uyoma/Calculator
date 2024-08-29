@@ -124,6 +124,6 @@ describe("evaluate", () => {
     const expr = parse("1 + 1 - 2 × 4 + 8 ÷ 2 - 1");
     const result = evaluate(expr);
 
-    expect(result).toBe(-9);
+    expect(result).toBe(-3);
   });
 });
