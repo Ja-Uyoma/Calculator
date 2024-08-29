@@ -1,5 +1,5 @@
 import { Stack } from "./Stack";
-import { operators, Operators } from "./Operator";
+import { operators } from "./Operator";
 import { add, divide, multiply, subtract } from "./MathOperations";
 
 /**
