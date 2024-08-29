@@ -83,7 +83,19 @@ describe("processOperator", () => {
     expect(stack.peek()).toBe("÷");
   });
 
-  it("Pops operators from the stack onto the output queue if the current operator has lower precedence", () => {
+  it("Pops operators from the stack and pushes the result of calling evaluate onto the output queue if the current operator has lower precedence", () => {
+    const stack = new Stack<string>();
+    const output: string[] = ["1", "2", "3", "4"];
+
+    stack.push("+");
+    stack.push("×");
+    stack.push("÷");
+
+    processOperator("-", stack, output);
+
+    expect(stack.peek()).toBe("-");
+    expect(output).toStrictEqual(["2.5"]);
+  });
     const stack = new Stack<string>();
     const output: string[] = [];
 
