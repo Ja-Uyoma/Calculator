@@ -36,7 +36,7 @@ describe("isNumber", () => {
 describe("processRightBracket", () => {
   it("Pushes result of calling evaluate with stack contents into the output array until it encounters a left bracket", () => {
     const stack = new Stack<string>();
-    const output: string[] = ["1", "2", "3", "4"];
+    const output: number[] = [1, 2, 3, 4];
 
     stack.push("÷");
     stack.push("(");
@@ -46,13 +46,13 @@ describe("processRightBracket", () => {
 
     processRightBracket(stack, output);
 
-    expect(output).toStrictEqual(["1"]);
+    expect(output).toStrictEqual([1]);
     expect(stack.peek()).toBe("÷");
   });
 
   it("Leaves the output array unmodified if it has less than 2 entries", () => {
     const stack = new Stack<string>();
-    const output: string[] = [];
+    const output: number[] = [];
 
     stack.push("÷");
     stack.push("(");
@@ -70,7 +70,7 @@ describe("processRightBracket", () => {
 describe("processOperator", () => {
   it("Pushes the given operator to the stack if the stack was initially empty", () => {
     const stack = new Stack<string>();
-    const output: string[] = [];
+    const output: number[] = [];
 
     processOperator("+", stack, output);
 
@@ -79,7 +79,7 @@ describe("processOperator", () => {
 
   it("Pushes the current operator on the stack if it has a greater precedence than the one at the top of the stack", () => {
     const stack = new Stack<string>();
-    const output: string[] = [];
+    const output: number[] = [];
 
     stack.push("×");
 
@@ -90,7 +90,7 @@ describe("processOperator", () => {
 
   it("Pushes the current operator on the stack if the top of the stack is a ( character", () => {
     const stack = new Stack<string>();
-    const output: string[] = [];
+    const output: number[] = [];
 
     stack.push("(");
 
@@ -101,7 +101,7 @@ describe("processOperator", () => {
 
   it("Pops operators from the stack and pushes the result of calling evaluate onto the output queue if the current operator has lower precedence", () => {
     const stack = new Stack<string>();
-    const output: string[] = ["1", "2", "3", "4"];
+    const output: number[] = [1, 2, 3, 4];
 
     stack.push("+");
     stack.push("×");
@@ -110,12 +110,12 @@ describe("processOperator", () => {
     processOperator("-", stack, output);
 
     expect(stack.peek()).toBe("-");
-    expect(output).toStrictEqual(["2.5"]);
+    expect(output).toStrictEqual([2.5]);
   });
 
   it("Leaves the output array unmodified if it has less than 2 entries", () => {
     const stack = new Stack<string>();
-    const output: string[] = [];
+    const output: number[] = [];
 
     stack.push("+");
     stack.push("×");
@@ -137,7 +137,7 @@ describe("parseAndEvaluate", () => {
 
 describe("evaluate", () => {
   it("returns early if the output array has less than 2 entries", () => {
-    let output: string[] = [];
+    let output: number[] = [];
 
     evaluate("+", output);
 
@@ -145,30 +145,30 @@ describe("evaluate", () => {
   });
 
   it("Pushes the difference of its entries to the output array when called with the - operator", () => {
-    let output: string[] = ["1", "2"];
+    let output: number[] = [1, 2];
 
     evaluate("-", output);
-    expect(output).toStrictEqual(["-1"]);
+    expect(output).toStrictEqual([-1]);
   });
 
   it("Pushes the sum of its entries  to the output array when called with the + operator", () => {
-    let output: string[] = ["1", "2"];
+    let output: number[] = [1, 2];
 
     evaluate("+", output);
-    expect(output).toStrictEqual(["3"]);
+    expect(output).toStrictEqual([3]);
   });
 
   it("Pushes the product of its entries  to the output array when called with the × operator", () => {
-    let output: string[] = ["1", "2"];
+    let output: number[] = [1, 2];
 
     evaluate("×", output);
-    expect(output).toStrictEqual(["2"]);
+    expect(output).toStrictEqual([2]);
   });
 
   it("Pushes the quotient of its entries  to the output array when called with the ÷ operator", () => {
-    let output: string[] = ["1", "2"];
+    let output: number[] = [1, 2];
 
     evaluate("÷", output);
-    expect(output).toStrictEqual(["0.5"]);
+    expect(output).toStrictEqual([0.5]);
   });
 });
