@@ -19,3 +19,17 @@ export const TokenTypes: TokenTypeInterface = {
   LEFT_PAREN: "(",
   RIGHT_PAREN: ")",
 };
+
+type TokenSpecType = [RegExp, string | null];
+
+export const TokenSpecification: TokenSpecType[] = [
+  [/^\s+/, null],
+  [/^\d+/, TokenTypes.NUMBER],
+  [/^\+/, TokenTypes.ADDITION],
+  [/^\-/, TokenTypes.SUBTRACTION],
+  [/^\×/, TokenTypes.MULTIPLICATION],
+  [/^\÷/, TokenTypes.DIVISION],
+  [/^\^/, TokenTypes.EXPONENTIATION],
+  [/^\(/, TokenTypes.LEFT_PAREN],
+  [/^\)/, TokenTypes.RIGHT_PAREN],
+];
