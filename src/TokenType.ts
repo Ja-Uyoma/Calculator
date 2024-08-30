@@ -24,7 +24,7 @@ type TokenSpecType = [RegExp, string | null];
 
 export const TokenSpecification: TokenSpecType[] = [
   [/^\s+/, null],
-  [/^\d+/, TokenTypes.NUMBER],
+  [/^(?:\d+(:?\.\d*)?|\.\d+)/, TokenTypes.NUMBER],
   [/^\+/, TokenTypes.ADDITION],
   [/^\-/, TokenTypes.SUBTRACTION],
   [/^\×/, TokenTypes.MULTIPLICATION],
