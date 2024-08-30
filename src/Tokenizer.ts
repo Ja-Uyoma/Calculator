@@ -5,9 +5,8 @@ import { isNumber, isOperator } from "./Parser";
  * @param input The string to be tokenized
  * @returns An array of tokens
  */
-export function tokenizer(input: string): string[] {
+export function tokenizer(input: string, buffer: string): string[] {
   const tokens: string[] = [];
-  let buffer: string = "";
 
   for (let i = 0; i < input.length; i++) {
     // SKip whitespace characters
