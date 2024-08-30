@@ -13,10 +13,7 @@ export function tokenizer(input: string, buffer: string): string[] {
     if (input[i] === " ") {
       // If the buffer contains any characters, push them to the tokens array
       // and clear the buffer
-      if (buffer.length > 0) {
-        tokens.push(buffer);
-        buffer = "";
-      }
+      flushBuffer(buffer, tokens);
 
       continue;
     }
@@ -29,10 +26,7 @@ export function tokenizer(input: string, buffer: string): string[] {
 
     // Check if the character is an operator
     if (isOperator(input[i])) {
-      if (buffer.length > 0) {
-        tokens.push(buffer);
-        buffer = "";
-      }
+      flushBuffer(buffer, tokens);
 
       tokens.push(input[i]);
       continue;
@@ -41,12 +35,21 @@ export function tokenizer(input: string, buffer: string): string[] {
     // If we reach the end of the string,
     // push whatever is in the buffer to the tokens array
     if (i === input.length - 1) {
-      if (buffer.length > 0) {
-        tokens.push(buffer);
-        buffer = "";
-      }
+      flushBuffer(buffer, tokens);
     }
   }
 
   return tokens;
+}
+
+/**
+ * Flush the buffer if it's not empty by pushing its contents to the tokens array
+ * @param buffer The buffer to be flushd
+ * @param tokens The array of tokens
+ */
+export function flushBuffer(buffer: string, tokens: string[]): void {
+  if (buffer.length > 0) {
+    tokens.push(buffer);
+    buffer = "";
+  }
 }
