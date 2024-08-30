@@ -1,6 +1,7 @@
 import { Stack } from "./Stack";
 import { Operators } from "./Operator";
 import { add, divide, multiply, subtract } from "./MathOperations";
+import { Tokenizer } from "./Tokenizer";
 
 /**
  * Determine if a given character is an operator or not
@@ -86,12 +87,11 @@ export function parseAndEvaluate(expr: string): number {
     }
   };
 
-  for (let char of expr) {
-    if (char == " ") {
-      continue;
-    }
+  const tokenizer = new Tokenizer(expr);
+  let token = null;
 
-    processToken(char);
+  while ((token = tokenizer.getNextToken())) {
+    processToken(token.value);
   }
 
   while (!stack.empty() && stack.peek() != "(") {
