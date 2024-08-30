@@ -21,6 +21,11 @@ export function tokenizer(input: string, buffer: string): string[] {
     // Check if the character is a number
     if (isNumber(input[i])) {
       buffer += input[i];
+
+      if (i === input.length - 1) {
+        buffer = flushBuffer(buffer, tokens);
+      }
+
       continue;
     }
 
