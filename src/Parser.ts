@@ -72,20 +72,26 @@ export function parseAndEvaluate(expr: string): number {
   const stack = new Stack<string>();
   const output: number[] = [];
 
+  const processToken = (token: string) => {
+    if (isNumber(token)) {
+      output.push(parseFloat(token));
+    } else if (isOperator(token)) {
+      processOperator(token, stack, output);
+    } else if (token == "(") {
+      stack.push(token);
+    } else if (token == ")") {
+      processRightBracket(stack, output);
+    } else {
+      throw new Error(`Invalid token: ${token}`);
+    }
+  };
+
   for (let char of expr) {
     if (char == " ") {
       continue;
-    } else if (isNumber(char)) {
-      output.push(parseFloat(char));
-    } else if (isOperator(char)) {
-      processOperator(char, stack, output);
-    } else if (char == "(") {
-      stack.push(char);
-    } else if (char == ")") {
-      processRightBracket(stack, output);
-    } else {
-      throw new Error(`Invalid token: ${char}`);
     }
+
+    processToken(char);
   }
 
   while (!stack.empty() && stack.peek() != "(") {
