@@ -142,29 +142,25 @@ describe("evaluate", () => {
   it("Pushes the difference of its entries to the output array when called with the - operator", () => {
     let output: number[] = [1, 2];
 
-    evaluate("-", output);
-    expect(output).toStrictEqual([-1]);
+    expect(evaluate("-", output)).toBe(-1);
   });
 
   it("Pushes the sum of its entries  to the output array when called with the + operator", () => {
     let output: number[] = [1, 2];
 
-    evaluate("+", output);
-    expect(output).toStrictEqual([3]);
+    expect(evaluate("+", output)).toBe(3);
   });
 
   it("Pushes the product of its entries  to the output array when called with the × operator", () => {
     let output: number[] = [1, 2];
 
-    evaluate("×", output);
-    expect(output).toStrictEqual([2]);
+    expect(evaluate("×", output)).toBe(2);
   });
 
   it("Pushes the quotient of its entries  to the output array when called with the ÷ operator", () => {
     let output: number[] = [1, 2];
 
-    evaluate("÷", output);
-    expect(output).toStrictEqual([0.5]);
+    expect(evaluate("÷", output)).toBe(0.5);
   });
 });
 
