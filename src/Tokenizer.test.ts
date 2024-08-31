@@ -98,6 +98,11 @@ describe("Tokenizer", () => {
     expect(tokenizer.match(/^\×/, "×")).toBe("×");
     expect(tokenizer.match(/^\÷/, "÷")).toBe("÷");
     expect(tokenizer.match(/^\^/, "^")).toBe("^");
+  });
+
+  it("match correctly matches against parentheses", () => {
+    let tokenizer = new Tokenizer("");
+
     expect(tokenizer.match(/^\(/, "(")).toBe("(");
     expect(tokenizer.match(/^\)/, ")")).toBe(")");
   });
