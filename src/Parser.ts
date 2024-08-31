@@ -9,7 +9,7 @@ import { Tokenizer } from "./Tokenizer";
  * @returns True if the given character is an operator, false otherwise
  */
 export function isOperator(expr: string): boolean {
-  return expr === "-" || expr === "+" || expr === "×" || expr === "÷";
+  return Object.keys(Operators).includes(expr);
 }
 
 /**
