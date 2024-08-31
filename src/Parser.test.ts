@@ -17,6 +17,7 @@ describe("isOperator", () => {
     expect(isOperator("×")).toBe(true);
     expect(isOperator("÷")).toBe(true);
     expect(isOperator("^")).toBe(true);
+    expect(isOperator("u")).toBe(true);
   });
 
   it("returns false if a given character is not an operator", () => {
