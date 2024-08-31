@@ -176,7 +176,7 @@ describe("evaluate", () => {
 });
 
 describe("parseAndEvaluate", () => {
-  it("converts an infix expression into Reverse Polish Notation and evaluates it", () => {
+  it("evaluates a mathematical expression in infix form", () => {
     expect(parseAndEvaluate("1 + 1 - 2")).toBe(0);
     expect(parseAndEvaluate("1 + 1 - 2 × 4 + 8 ÷ 2 - 1")).toBe(-3);
   });
