@@ -118,6 +118,18 @@ export function evaluate(operator: string, output: number[]) {
     return;
   }
 
+  if (isFunction(operator)) {
+    const val = output.pop()!;
+
+    if (operator === "sin") {
+      output.push(Math.sin(val));
+    } else if (operator === "cos") {
+      output.push(Math.cos(val));
+    } else if (operator === "tan") {
+      output.push(Math.tan(val));
+    }
+  }
+
   const right = output.pop()!;
   const left = output.pop()!;
 
