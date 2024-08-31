@@ -96,9 +96,11 @@ export function parseAndEvaluate(expr: string): number {
 
   const tokenizer = new Tokenizer(expr);
   let currToken = null;
+  let prevToken = null;
 
   while ((currToken = tokenizer.getNextToken())) {
     processToken(currToken.value);
+    prevToken = currToken;
   }
 
   while (!stack.empty() && stack.peek() != "(") {
