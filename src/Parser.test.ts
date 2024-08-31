@@ -25,10 +25,16 @@ describe("isOperator", () => {
 });
 
 describe("isNumber", () => {
-  it("returns true if a given character is a number", () => {
+  it("returns true if a given character is a positive number", () => {
     expect(isNumber("1234")).toBe(true);
-    expect(isNumber("3.14159")).toBe(true);
+  });
+
+  it("returns true if a given character is a negative number", () => {
     expect(isNumber("-1234")).toBe(true);
+  });
+
+  it("returns true if a given character is a decimal number", () => {
+    expect(isNumber("3.14159")).toBe(true);
   });
 
   it("returns false if the given character is not a number", () => {
