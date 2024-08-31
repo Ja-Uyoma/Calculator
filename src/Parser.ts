@@ -99,7 +99,17 @@ export function parseAndEvaluate(expr: string): number {
   let prevToken = null;
 
   while ((currToken = tokenizer.getNextToken())) {
-    processToken(currToken.value);
+    if (
+      currToken.value === "-" &&
+      (prevToken === null ||
+        prevToken.value === "(" ||
+        Object.keys(Operators).includes(prevToken.value))
+    ) {
+      processToken("u");
+    } else {
+      processToken(currToken.value);
+    }
+
     prevToken = currToken;
   }
 
