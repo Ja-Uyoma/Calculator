@@ -137,13 +137,6 @@ describe("processOperator", () => {
   });
 });
 
-describe("parseAndEvaluate", () => {
-  it("converts an infix expression into Reverse Polish Notation and evaluates it", () => {
-    expect(parseAndEvaluate("1 + 1 - 2")).toBe(0);
-    expect(parseAndEvaluate("1 + 1 - 2 × 4 + 8 ÷ 2 - 1")).toBe(-3);
-  });
-});
-
 describe("evaluate", () => {
   it("returns early if the output array has less than 2 entries", () => {
     let output: number[] = [];
@@ -179,5 +172,12 @@ describe("evaluate", () => {
 
     evaluate("÷", output);
     expect(output).toStrictEqual([0.5]);
+  });
+});
+
+describe("parseAndEvaluate", () => {
+  it("converts an infix expression into Reverse Polish Notation and evaluates it", () => {
+    expect(parseAndEvaluate("1 + 1 - 2")).toBe(0);
+    expect(parseAndEvaluate("1 + 1 - 2 × 4 + 8 ÷ 2 - 1")).toBe(-3);
   });
 });
