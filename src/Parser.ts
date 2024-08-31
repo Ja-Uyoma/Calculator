@@ -46,7 +46,7 @@ export function processOperator(
       (Operators[stack.peek()].precedence === Operators[operator].precedence &&
         Operators[operator].associativity === "left"))
   ) {
-    evaluate(stack.pop(), output);
+    output.push(evaluate(stack.pop(), output));
   }
 
   stack.push(operator);
@@ -59,13 +59,13 @@ export function processOperator(
  */
 export function processRightBracket(stack: Stack<string>, output: number[]) {
   while (!stack.empty() && stack.peek() !== "(") {
-    evaluate(stack.pop(), output);
+    output.push(evaluate(stack.pop(), output));
   }
 
   stack.pop();
 
   if (isFunction(stack.peek())) {
-    evaluate(stack.pop(), output);
+    output.push(evaluate(stack.pop(), output));
   }
 }
 
@@ -114,7 +114,7 @@ export function parseAndEvaluate(expr: string): number {
   }
 
   while (!stack.empty() && stack.peek() != "(") {
-    evaluate(stack.pop(), output);
+    output.push(evaluate(stack.pop(), output));
   }
 
   return output[0];
@@ -125,20 +125,20 @@ export function parseAndEvaluate(expr: string): number {
  * @param operator The arithmetic operator
  * @param output A buffer containing the intermediate results
  */
-export function evaluate(operator: string, output: number[]) {
-  if (output.length < 2) {
-    return;
-  }
+export function evaluate(operator: string, output: number[]): number {
+  // if (output.length < 2) {
+  //   return;
+  // }
 
   if (isFunction(operator)) {
     const val = output.pop()!;
 
     if (operator === "sin") {
-      output.push(Math.sin(val));
+      return Math.sin(val);
     } else if (operator === "cos") {
-      output.push(Math.cos(val));
+      return Math.cos(val);
     } else if (operator === "tan") {
-      output.push(Math.tan(val));
+      return Math.tan(val);
     }
   }
 
@@ -146,15 +146,15 @@ export function evaluate(operator: string, output: number[]) {
   const left = output.pop()!;
 
   if (operator === "-") {
-    output.push(subtract(left, right));
+    return subtract(left, right);
   } else if (operator === "+") {
-    output.push(add(left, right));
+    return add(left, right);
   } else if (operator === "×") {
-    output.push(multiply(left, right));
+    return multiply(left, right);
   } else if (operator === "÷") {
-    output.push(divide(left, right));
+    return divide(left, right);
   } else if (operator === "^") {
-    output.push(left ** right);
+    return left ** right;
   } else {
     throw new Error(`Invalid operation: ${operator}`);
   }
