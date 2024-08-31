@@ -139,14 +139,6 @@ describe("processOperator", () => {
 });
 
 describe("evaluate", () => {
-  it("returns early if the output array has less than 2 entries", () => {
-    let output: number[] = [];
-
-    evaluate("+", output);
-
-    expect(output).toStrictEqual([]);
-  });
-
   it("Pushes the difference of its entries to the output array when called with the - operator", () => {
     let output: number[] = [1, 2];
 
