@@ -5,7 +5,7 @@ interface TokenTypeInterface {
   MULTIPLICATION: string;
   DIVISION: string;
   EXPONENTIATION: string;
-  LEFT_PAREN: string;
+  LPAREN: string;
   RIGHT_PAREN: string;
 }
 
@@ -16,7 +16,7 @@ export const TokenTypes: TokenTypeInterface = {
   MULTIPLICATION: "×",
   DIVISION: "÷",
   EXPONENTIATION: "^",
-  LEFT_PAREN: "(",
+  LPAREN: "(",
   RIGHT_PAREN: ")",
 };
 
@@ -30,6 +30,6 @@ export const TokenSpecification: TokenSpecType[] = [
   [/^\×/, TokenTypes.MULTIPLICATION],
   [/^\÷/, TokenTypes.DIVISION],
   [/^\^/, TokenTypes.EXPONENTIATION],
-  [/^\(/, TokenTypes.LEFT_PAREN],
+  [/^\(/, TokenTypes.LPAREN],
   [/^\)/, TokenTypes.RIGHT_PAREN],
 ];
