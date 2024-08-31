@@ -126,10 +126,6 @@ export function parseAndEvaluate(expr: string): number {
  * @param output A buffer containing the intermediate results
  */
 export function evaluate(operator: string, output: number[]): number {
-  // if (output.length < 2) {
-  //   return;
-  // }
-
   if (isFunction(operator)) {
     const val = output.pop()!;
 
