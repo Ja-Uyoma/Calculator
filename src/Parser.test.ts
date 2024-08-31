@@ -28,6 +28,7 @@ describe("isNumber", () => {
   it("returns true if a given character is a number", () => {
     expect(isNumber("1234")).toBe(true);
     expect(isNumber("3.14159")).toBe(true);
+    expect(isNumber("-1234")).toBe(true);
   });
 
   it("returns false if the given character is not a number", () => {
