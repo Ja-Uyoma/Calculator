@@ -1,6 +1,7 @@
 import { Stack } from "./Stack";
 import { Operators } from "./Operator";
 import { add, divide, multiply, subtract } from "./MathOperations";
+import { Tokenizer } from "./Tokenizer";
 
 /**
  * Determine if a given character is an operator or not
@@ -8,7 +9,7 @@ import { add, divide, multiply, subtract } from "./MathOperations";
  * @returns True if the given character is an operator, false otherwise
  */
 export function isOperator(expr: string): boolean {
-  return expr === "-" || expr === "+" || expr === "×" || expr === "÷";
+  return Object.keys(Operators).includes(expr);
 }
 
 /**
@@ -72,20 +73,25 @@ export function parseAndEvaluate(expr: string): number {
   const stack = new Stack<string>();
   const output: number[] = [];
 
-  for (let char of expr) {
-    if (char == " ") {
-      continue;
-    } else if (isNumber(char)) {
-      output.push(parseFloat(char));
-    } else if (isOperator(char)) {
-      processOperator(char, stack, output);
-    } else if (char == "(") {
-      stack.push(char);
-    } else if (char == ")") {
+  const processToken = (token: string) => {
+    if (isNumber(token)) {
+      output.push(parseFloat(token));
+    } else if (isOperator(token)) {
+      processOperator(token, stack, output);
+    } else if (token == "(") {
+      stack.push(token);
+    } else if (token == ")") {
       processRightBracket(stack, output);
     } else {
-      throw new Error(`Invalid token: ${char}`);
+      throw new Error(`Invalid token: ${token}`);
     }
+  };
+
+  const tokenizer = new Tokenizer(expr);
+  let token = null;
+
+  while ((token = tokenizer.getNextToken())) {
+    processToken(token.value);
   }
 
   while (!stack.empty() && stack.peek() != "(") {

@@ -11,7 +11,7 @@ export function updateDisplay() {
   buttons.forEach((btn) => {
     btn.addEventListener("click", () => {
       if (btn.textContent !== "=") {
-        if (input && input.textContent === "0") {
+        if (input && input.textContent === "0" && btn.textContent !== ".") {
           input.textContent = btn.textContent;
         } else if (input?.textContent) {
           input.textContent += btn.textContent;
