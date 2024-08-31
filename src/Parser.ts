@@ -63,6 +63,10 @@ export function processRightBracket(stack: Stack<string>, output: number[]) {
   }
 
   stack.pop();
+
+  if (isFunction(stack.peek())) {
+    evaluate(stack.pop(), output);
+  }
 }
 
 /**
