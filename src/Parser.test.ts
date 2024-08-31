@@ -181,4 +181,10 @@ describe("parseAndEvaluate", () => {
     expect(parseAndEvaluate("1 + 1 - 2 × 4 + 8 ÷ 2 - 1")).toBe(-3);
     expect(parseAndEvaluate("1 + 1 - 2 × (4 + 8) ÷ (2 - 1)")).toBe(-22);
   });
+
+  it("evaluates functions", () => {
+    expect(parseAndEvaluate("sin(0)")).toBe(0);
+    expect(parseAndEvaluate("cos(0)")).toBe(0);
+    expect(parseAndEvaluate("tan(0)")).toBe(0);
+  });
 });
