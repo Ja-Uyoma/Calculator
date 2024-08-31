@@ -8,7 +8,7 @@ This project creates a simple calculator application, wherein users can evaluate
 
 ### Background
 
-This project is an exercise from [The Odin Project|https://www.theodinproject.com/lessons/foundations-calculator].
+This project is an exercise from [The Odin Project](https://www.theodinproject.com/lessons/foundations-calculator).
 
 ## Getting Started
 
