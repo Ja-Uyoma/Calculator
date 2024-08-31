@@ -16,6 +16,7 @@ describe("isOperator", () => {
     expect(isOperator("-")).toBe(true);
     expect(isOperator("×")).toBe(true);
     expect(isOperator("÷")).toBe(true);
+    expect(isOperator("^")).toBe(true);
   });
 
   it("returns false if a given character is not an operator", () => {
@@ -24,8 +25,16 @@ describe("isOperator", () => {
 });
 
 describe("isNumber", () => {
-  it("returns true if a given character is a number", () => {
+  it("returns true if a given character is a positive number", () => {
     expect(isNumber("1234")).toBe(true);
+  });
+
+  it("returns true if a given character is a negative number", () => {
+    expect(isNumber("-1234")).toBe(true);
+  });
+
+  it("returns true if a given character is a decimal number", () => {
+    expect(isNumber("3.14159")).toBe(true);
   });
 
   it("returns false if the given character is not a number", () => {
@@ -128,13 +137,6 @@ describe("processOperator", () => {
   });
 });
 
-describe("parseAndEvaluate", () => {
-  it("converts an infix expression into Reverse Polish Notation and evaluates it", () => {
-    expect(parseAndEvaluate("1 + 1 - 2")).toBe(0);
-    expect(parseAndEvaluate("1 + 1 - 2 × 4 + 8 ÷ 2 - 1")).toBe(-3);
-  });
-});
-
 describe("evaluate", () => {
   it("returns early if the output array has less than 2 entries", () => {
     let output: number[] = [];
@@ -170,5 +172,13 @@ describe("evaluate", () => {
 
     evaluate("÷", output);
     expect(output).toStrictEqual([0.5]);
+  });
+});
+
+describe("parseAndEvaluate", () => {
+  it("evaluates a mathematical expression in infix form", () => {
+    expect(parseAndEvaluate("1 + 1 - 2")).toBe(0);
+    expect(parseAndEvaluate("1 + 1 - 2 × 4 + 8 ÷ 2 - 1")).toBe(-3);
+    expect(parseAndEvaluate("1 + 1 - 2 × (4 + 8) ÷ (2 - 1)")).toBe(-22);
   });
 });
