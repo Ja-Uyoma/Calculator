@@ -95,10 +95,10 @@ export function parseAndEvaluate(expr: string): number {
   };
 
   const tokenizer = new Tokenizer(expr);
-  let token = null;
+  let currToken = null;
 
-  while ((token = tokenizer.getNextToken())) {
-    processToken(token.value);
+  while ((currToken = tokenizer.getNextToken())) {
+    processToken(currToken.value);
   }
 
   while (!stack.empty() && stack.peek() != "(") {
