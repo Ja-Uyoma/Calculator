@@ -6,7 +6,7 @@ interface TokenTypeInterface {
   DIVISION: string;
   EXPONENTIATION: string;
   LPAREN: string;
-  RIGHT_PAREN: string;
+  RPAREN: string;
 }
 
 export const TokenTypes: TokenTypeInterface = {
@@ -17,7 +17,7 @@ export const TokenTypes: TokenTypeInterface = {
   DIVISION: "÷",
   EXPONENTIATION: "^",
   LPAREN: "(",
-  RIGHT_PAREN: ")",
+  RPAREN: ")",
 };
 
 type TokenSpecType = [RegExp, string | null];
@@ -31,5 +31,5 @@ export const TokenSpecification: TokenSpecType[] = [
   [/^\÷/, TokenTypes.DIVISION],
   [/^\^/, TokenTypes.EXPONENTIATION],
   [/^\(/, TokenTypes.LPAREN],
-  [/^\)/, TokenTypes.RIGHT_PAREN],
+  [/^\)/, TokenTypes.RPAREN],
 ];
