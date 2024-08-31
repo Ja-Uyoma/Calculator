@@ -98,6 +98,11 @@ describe("Tokenizer", () => {
     expect(tokenizer.match(/^\×/, "×")).toBe("×");
     expect(tokenizer.match(/^\÷/, "÷")).toBe("÷");
     expect(tokenizer.match(/^\^/, "^")).toBe("^");
+  });
+
+  it("match correctly matches against parentheses", () => {
+    let tokenizer = new Tokenizer("");
+
     expect(tokenizer.match(/^\(/, "(")).toBe("(");
     expect(tokenizer.match(/^\)/, ")")).toBe(")");
   });
@@ -120,6 +125,30 @@ describe("Tokenizer", () => {
     expect(tokenizer.getNextToken()).toStrictEqual({
       type: "NUMBER",
       value: "2",
+    });
+  });
+
+  it("correctly tokenizes expressions containing identifiers", () => {
+    let tokenizer = new Tokenizer("sin(2)");
+
+    expect(tokenizer.getNextToken()).toStrictEqual({
+      type: "IDENTIFIER",
+      value: "sin",
+    });
+
+    expect(tokenizer.getNextToken()).toStrictEqual({
+      type: "(",
+      value: "(",
+    });
+
+    expect(tokenizer.getNextToken()).toStrictEqual({
+      type: "NUMBER",
+      value: "2",
+    });
+
+    expect(tokenizer.getNextToken()).toStrictEqual({
+      type: ")",
+      value: ")",
     });
   });
 });

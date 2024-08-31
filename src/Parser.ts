@@ -2,6 +2,7 @@ import { Stack } from "./Stack";
 import { Operators } from "./Operator";
 import { add, divide, multiply, subtract } from "./MathOperations";
 import { Tokenizer } from "./Tokenizer";
+import { isFunction } from "./Functions";
 
 /**
  * Determine if a given character is an operator or not
@@ -62,6 +63,10 @@ export function processRightBracket(stack: Stack<string>, output: number[]) {
   }
 
   stack.pop();
+
+  if (isFunction(stack.peek())) {
+    evaluate(stack.pop(), output);
+  }
 }
 
 /**
@@ -76,6 +81,8 @@ export function parseAndEvaluate(expr: string): number {
   const processToken = (token: string) => {
     if (isNumber(token)) {
       output.push(parseFloat(token));
+    } else if (isFunction(token)) {
+      stack.push(token);
     } else if (isOperator(token)) {
       processOperator(token, stack, output);
     } else if (token == "(") {
@@ -109,6 +116,18 @@ export function parseAndEvaluate(expr: string): number {
 export function evaluate(operator: string, output: number[]) {
   if (output.length < 2) {
     return;
+  }
+
+  if (isFunction(operator)) {
+    const val = output.pop()!;
+
+    if (operator === "sin") {
+      output.push(Math.sin(val));
+    } else if (operator === "cos") {
+      output.push(Math.cos(val));
+    } else if (operator === "tan") {
+      output.push(Math.tan(val));
+    }
   }
 
   const right = output.pop()!;
