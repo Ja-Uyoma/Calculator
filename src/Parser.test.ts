@@ -139,25 +139,25 @@ describe("processOperator", () => {
 });
 
 describe("evaluate", () => {
-  it("Pushes the difference of its entries to the output array when called with the - operator", () => {
+  it("Returns the difference of its entries when called with the - operator", () => {
     let output: number[] = [1, 2];
 
     expect(evaluate("-", output)).toBe(-1);
   });
 
-  it("Pushes the sum of its entries  to the output array when called with the + operator", () => {
+  it("Returns the sum of its entries when called with the + operator", () => {
     let output: number[] = [1, 2];
 
     expect(evaluate("+", output)).toBe(3);
   });
 
-  it("Pushes the product of its entries  to the output array when called with the × operator", () => {
+  it("Returns the product of its entries when called with the × operator", () => {
     let output: number[] = [1, 2];
 
     expect(evaluate("×", output)).toBe(2);
   });
 
-  it("Pushes the quotient of its entries  to the output array when called with the ÷ operator", () => {
+  it("Returns the quotient of its entries when called with the ÷ operator", () => {
     let output: number[] = [1, 2];
 
     expect(evaluate("÷", output)).toBe(0.5);
