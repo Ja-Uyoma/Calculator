@@ -1,5 +1,6 @@
 interface TokenTypeInterface {
   NUMBER: string;
+  IDENTIFIER: string;
   ADDITION: string;
   SUBTRACTION: string;
   MULTIPLICATION: string;
@@ -11,6 +12,7 @@ interface TokenTypeInterface {
 
 export const TokenTypes: TokenTypeInterface = {
   NUMBER: "NUMBER",
+  IDENTIFIER: "IDENTIFIER",
   ADDITION: "+",
   SUBTRACTION: "-",
   MULTIPLICATION: "×",
