@@ -155,3 +155,21 @@ export function evaluate(operator: string, output: number[]): number {
     throw new Error(`Invalid operation: ${operator}`);
   }
 }
+
+/**
+ * Determine if the given token is null, an opening parenthesis, or an operator
+ * @param token The token under test
+ * @returns True if the token is null, an opening parenthesis, or an operator and false otherwise
+ */
+export function tokenIsNullOrLeftParenOrAnOperator(
+  token: {
+    type: string;
+    value: string;
+  } | null
+): boolean {
+  return (
+    token === null ||
+    token.value === "(" ||
+    Object.keys(Operators).includes(token.value)
+  );
+}
