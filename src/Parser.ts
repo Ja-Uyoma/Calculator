@@ -101,9 +101,7 @@ export function parseAndEvaluate(expr: string): number {
   while ((currToken = tokenizer.getNextToken())) {
     if (
       currToken.value === "-" &&
-      (prevToken === null ||
-        prevToken.value === "(" ||
-        Object.keys(Operators).includes(prevToken.value))
+      tokenIsNullOrLeftParenOrAnOperator(prevToken)
     ) {
       processToken("u");
     } else {
