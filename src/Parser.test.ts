@@ -141,6 +141,14 @@ describe("evaluate", () => {
     output = [5];
     expect(evaluate("sin", output)).toBeCloseTo(-0.958924274, 5);
   });
+
+  it("Returns the cosine of its input", () => {
+    let output: number[] = [0];
+    expect(evaluate("cos", output)).toBe(1);
+
+    output = [5];
+    expect(evaluate("cos", output)).toBeCloseTo(0.283662185463, 5);
+  });
 });
 
 describe("parseAndEvaluate", () => {
