@@ -5,6 +5,7 @@ import {
   processOperator,
   parseAndEvaluate,
   evaluate,
+  tokenIsNullOrLeftParenOrAnOperator,
 } from "./Parser";
 
 import { describe, expect, it } from "vitest";
@@ -175,5 +176,50 @@ describe("parseAndEvaluate", () => {
     expect(parseAndEvaluate("sin(0)")).toBe(0);
     expect(parseAndEvaluate("cos(0)")).toBe(0);
     expect(parseAndEvaluate("tan(0)")).toBe(0);
+  });
+});
+
+describe("tokenIsNullOrLeftParenOrAnOperator", () => {
+  it("returns true if the token is null", () => {
+    expect(tokenIsNullOrLeftParenOrAnOperator(null)).toBe(true);
+  });
+
+  it("returns true if the token is an opening parenthesis", () => {
+    expect(tokenIsNullOrLeftParenOrAnOperator({ type: "(", value: "(" })).toBe(
+      true
+    );
+  });
+
+  it("returns true if the token is an operator", () => {
+    expect(tokenIsNullOrLeftParenOrAnOperator({ type: "^", value: "^" })).toBe(
+      true
+    );
+    expect(tokenIsNullOrLeftParenOrAnOperator({ type: "×", value: "×" })).toBe(
+      true
+    );
+    expect(tokenIsNullOrLeftParenOrAnOperator({ type: "÷", value: "÷" })).toBe(
+      true
+    );
+    expect(tokenIsNullOrLeftParenOrAnOperator({ type: "+", value: "+" })).toBe(
+      true
+    );
+    expect(tokenIsNullOrLeftParenOrAnOperator({ type: "-", value: "-" })).toBe(
+      true
+    );
+    expect(tokenIsNullOrLeftParenOrAnOperator({ type: "u", value: "u" })).toBe(
+      true
+    );
+  });
+
+  it("returns false otherwise", () => {
+    expect(tokenIsNullOrLeftParenOrAnOperator({ type: ")", value: ")" })).toBe(
+      false
+    );
+    expect(
+      tokenIsNullOrLeftParenOrAnOperator({ type: "NUMBER", value: "4" })
+    ).toBe(false);
+    expect(
+      tokenIsNullOrLeftParenOrAnOperator({ type: "IDENTIFIER", value: "sin" })
+    ).toBe(false);
   });
 });
