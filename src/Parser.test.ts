@@ -157,6 +157,11 @@ describe("evaluate", () => {
     output = [5];
     expect(evaluate("tan", output)).toBeCloseTo(-3.380515006246585, 5);
   });
+
+  it("Returns the negation of its input", () => {
+    const output: number[] = [4, 5];
+    expect(evaluate("u", output)).toBe(-5);
+  });
 });
 
 describe("parseAndEvaluate", () => {
