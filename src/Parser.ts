@@ -78,7 +78,7 @@ export function parseAndEvaluate(expr: string): number {
   const stack = new Stack<string>();
   const output: number[] = [];
 
-  const processToken = (token: string) => {
+  const handleToken = (token: string) => {
     if (isNumber(token)) {
       output.push(parseFloat(token));
     } else if (isFunction(token)) {
@@ -103,9 +103,9 @@ export function parseAndEvaluate(expr: string): number {
       currToken.value === "-" &&
       tokenIsNullOrLeftParenOrAnOperator(prevToken)
     ) {
-      processToken("u");
+      handleToken("u");
     } else {
-      processToken(currToken.value);
+      handleToken(currToken.value);
     }
 
     prevToken = currToken;
