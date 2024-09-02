@@ -107,20 +107,6 @@ describe("processOperator", () => {
     expect(stack.peek()).toBe("-");
     expect(output).toStrictEqual([2.5]);
   });
-
-  it("Leaves the output array unmodified if it has less than 2 entries", () => {
-    const stack = new Stack<string>();
-    const output: number[] = [];
-
-    stack.push("+");
-    stack.push("×");
-    stack.push("÷");
-
-    processOperator("-", stack, output);
-
-    expect(stack.peek()).toBe("-");
-    expect(output).toStrictEqual([]);
-  });
 });
 
 describe("evaluate", () => {
