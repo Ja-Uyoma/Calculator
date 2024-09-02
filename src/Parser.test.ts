@@ -133,6 +133,14 @@ describe("evaluate", () => {
 
     expect(evaluate("÷", output)).toBe(0.5);
   });
+
+  it("Returns the sine of its input", () => {
+    let output: number[] = [0];
+    expect(evaluate("sin", output)).toBe(0);
+
+    output = [5];
+    expect(evaluate("sin", output)).toBeCloseTo(-0.958924274, 5);
+  });
 });
 
 describe("parseAndEvaluate", () => {
