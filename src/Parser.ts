@@ -64,7 +64,7 @@ export function processRightBracket(stack: Stack<string>, output: number[]) {
 
   stack.pop();
 
-  if (isFunction(stack.peek())) {
+  if (!stack.empty() && isFunction(stack.peek())) {
     output.push(evaluate(stack.pop(), output));
   }
 }
