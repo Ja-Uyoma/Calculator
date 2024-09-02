@@ -168,7 +168,7 @@ describe("parseAndEvaluate", () => {
 
   it("evaluates functions", () => {
     expect(parseAndEvaluate("sin(0)")).toBe(0);
-    expect(parseAndEvaluate("cos(0)")).toBe(0);
+    expect(parseAndEvaluate("cos(0)")).toBe(1);
     expect(parseAndEvaluate("tan(0)")).toBe(0);
   });
 });
