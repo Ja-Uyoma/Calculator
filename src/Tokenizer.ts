@@ -1,4 +1,3 @@
-import { isNumber, isOperator } from "./Parser";
 import { TokenSpecification } from "./TokenType";
 
 export class Tokenizer {
