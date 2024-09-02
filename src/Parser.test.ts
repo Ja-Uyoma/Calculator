@@ -5,6 +5,7 @@ import {
   processOperator,
   parseAndEvaluate,
   evaluate,
+  tokenIsNullOrLeftParenOrAnOperator,
 } from "./Parser";
 
 import { describe, expect, it } from "vitest";
@@ -17,6 +18,7 @@ describe("isOperator", () => {
     expect(isOperator("×")).toBe(true);
     expect(isOperator("÷")).toBe(true);
     expect(isOperator("^")).toBe(true);
+    expect(isOperator("u")).toBe(true);
   });
 
   it("returns false if a given character is not an operator", () => {
@@ -56,22 +58,6 @@ describe("processRightBracket", () => {
     processRightBracket(stack, output);
 
     expect(output).toStrictEqual([1]);
-    expect(stack.peek()).toBe("÷");
-  });
-
-  it("Leaves the output array unmodified if it has less than 2 entries", () => {
-    const stack = new Stack<string>();
-    const output: number[] = [];
-
-    stack.push("÷");
-    stack.push("(");
-    stack.push("×");
-    stack.push("+");
-    stack.push("-");
-
-    processRightBracket(stack, output);
-
-    expect(output).toStrictEqual([]);
     expect(stack.peek()).toBe("÷");
   });
 });
@@ -121,57 +107,60 @@ describe("processOperator", () => {
     expect(stack.peek()).toBe("-");
     expect(output).toStrictEqual([2.5]);
   });
-
-  it("Leaves the output array unmodified if it has less than 2 entries", () => {
-    const stack = new Stack<string>();
-    const output: number[] = [];
-
-    stack.push("+");
-    stack.push("×");
-    stack.push("÷");
-
-    processOperator("-", stack, output);
-
-    expect(stack.peek()).toBe("-");
-    expect(output).toStrictEqual([]);
-  });
 });
 
 describe("evaluate", () => {
-  it("returns early if the output array has less than 2 entries", () => {
-    let output: number[] = [];
-
-    evaluate("+", output);
-
-    expect(output).toStrictEqual([]);
-  });
-
-  it("Pushes the difference of its entries to the output array when called with the - operator", () => {
+  it("Returns the difference of its entries when called with the - operator", () => {
     let output: number[] = [1, 2];
 
-    evaluate("-", output);
-    expect(output).toStrictEqual([-1]);
+    expect(evaluate("-", output)).toBe(-1);
   });
 
-  it("Pushes the sum of its entries  to the output array when called with the + operator", () => {
+  it("Returns the sum of its entries when called with the + operator", () => {
     let output: number[] = [1, 2];
 
-    evaluate("+", output);
-    expect(output).toStrictEqual([3]);
+    expect(evaluate("+", output)).toBe(3);
   });
 
-  it("Pushes the product of its entries  to the output array when called with the × operator", () => {
+  it("Returns the product of its entries when called with the × operator", () => {
     let output: number[] = [1, 2];
 
-    evaluate("×", output);
-    expect(output).toStrictEqual([2]);
+    expect(evaluate("×", output)).toBe(2);
   });
 
-  it("Pushes the quotient of its entries  to the output array when called with the ÷ operator", () => {
+  it("Returns the quotient of its entries when called with the ÷ operator", () => {
     let output: number[] = [1, 2];
 
-    evaluate("÷", output);
-    expect(output).toStrictEqual([0.5]);
+    expect(evaluate("÷", output)).toBe(0.5);
+  });
+
+  it("Returns the sine of its input", () => {
+    let output: number[] = [0];
+    expect(evaluate("sin", output)).toBe(0);
+
+    output = [5];
+    expect(evaluate("sin", output)).toBeCloseTo(-0.958924274, 5);
+  });
+
+  it("Returns the cosine of its input", () => {
+    let output: number[] = [0];
+    expect(evaluate("cos", output)).toBe(1);
+
+    output = [5];
+    expect(evaluate("cos", output)).toBeCloseTo(0.283662185463, 5);
+  });
+
+  it("Returns the tangent of its input", () => {
+    let output: number[] = [0];
+    expect(evaluate("tan", output)).toBe(0);
+
+    output = [5];
+    expect(evaluate("tan", output)).toBeCloseTo(-3.380515006246585, 5);
+  });
+
+  it("Returns the negation of its input", () => {
+    const output: number[] = [4, 5];
+    expect(evaluate("u", output)).toBe(-5);
   });
 });
 
@@ -184,7 +173,52 @@ describe("parseAndEvaluate", () => {
 
   it("evaluates functions", () => {
     expect(parseAndEvaluate("sin(0)")).toBe(0);
-    expect(parseAndEvaluate("cos(0)")).toBe(0);
+    expect(parseAndEvaluate("cos(0)")).toBe(1);
     expect(parseAndEvaluate("tan(0)")).toBe(0);
+  });
+});
+
+describe("tokenIsNullOrLeftParenOrAnOperator", () => {
+  it("returns true if the token is null", () => {
+    expect(tokenIsNullOrLeftParenOrAnOperator(null)).toBe(true);
+  });
+
+  it("returns true if the token is an opening parenthesis", () => {
+    expect(tokenIsNullOrLeftParenOrAnOperator({ type: "(", value: "(" })).toBe(
+      true
+    );
+  });
+
+  it("returns true if the token is an operator", () => {
+    expect(tokenIsNullOrLeftParenOrAnOperator({ type: "^", value: "^" })).toBe(
+      true
+    );
+    expect(tokenIsNullOrLeftParenOrAnOperator({ type: "×", value: "×" })).toBe(
+      true
+    );
+    expect(tokenIsNullOrLeftParenOrAnOperator({ type: "÷", value: "÷" })).toBe(
+      true
+    );
+    expect(tokenIsNullOrLeftParenOrAnOperator({ type: "+", value: "+" })).toBe(
+      true
+    );
+    expect(tokenIsNullOrLeftParenOrAnOperator({ type: "-", value: "-" })).toBe(
+      true
+    );
+    expect(tokenIsNullOrLeftParenOrAnOperator({ type: "u", value: "u" })).toBe(
+      true
+    );
+  });
+
+  it("returns false otherwise", () => {
+    expect(tokenIsNullOrLeftParenOrAnOperator({ type: ")", value: ")" })).toBe(
+      false
+    );
+    expect(
+      tokenIsNullOrLeftParenOrAnOperator({ type: "NUMBER", value: "4" })
+    ).toBe(false);
+    expect(
+      tokenIsNullOrLeftParenOrAnOperator({ type: "IDENTIFIER", value: "sin" })
+    ).toBe(false);
   });
 });
